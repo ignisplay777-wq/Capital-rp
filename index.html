@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital RP / INICIO</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(270deg, #03d9ff, #0026fe, #00ff55, #009b15);
+  background-size: 800% 800%;
+  animation: gradientMove 20s ease infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.inicio img {
+  width: 350px;
+  margin-bottom: 40px;
+}
+.boton-dc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 18px 36px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 20px rgba(0, 190, 255, 0.5), 0 0 40px rgba(0, 190, 255, 0.3);
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.boton-dc::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #00f0ff, #0026fe, #00ff55, #009b15);
+  filter: blur(20px);
+  opacity: 0.6;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+.boton-dc:hover::before {
+  opacity: 1;
+}
+.boton-dc:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(0, 190, 255, 0.7), 0 0 50px rgba(0, 190, 255, 0.5);
+}
+.boton-dc img {
+  width: 36px;
+  height: 36px;
+}
+</style>
+</head>
+<body>
+<div class="inicio">
+  <img src="logo capital rp.png" alt="Logo Capital RP">
+</div>
+<a class="boton-dc" href="pagina.html">
+  <span>ACCEDER</span>
+</a>
+</body>
+</html>
