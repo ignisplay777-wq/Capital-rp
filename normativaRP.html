@@ -4,307 +4,195 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Capital RP | Normativa RP</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: 'Poppins', Arial, sans-serif;
-}
-
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; font-family:'Poppins', Arial, sans-serif; }
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background: linear-gradient(270deg, #005b6b, #011274, #004718, #45005a);
+    background: linear-gradient(270deg,#005b6b,#011274,#004718,#45005a);
     background-size: 800% 800%;
     animation: gradientMove 20s ease infinite;
-    padding: 40px 15px;
-    color: #fff;
+    color:#fff;
+    padding-top:80px;
+}
+@keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.navbar{
+    width:100%; display:flex; justify-content:center; padding:10px 15px;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(15px);
+    position:fixed; top:0; z-index:10;
+}
+.navbar img{height:45px; opacity:0.7;}
+
+.contenedor{
+    width:90%; max-width:900px; margin:auto;
+    background: rgba(255,255,255,0.1); backdrop-filter: blur(15px);
+    border-radius:20px; padding:20px; box-shadow:0 0 30px rgba(0,0,0,0.6);
 }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+h1{ text-align:center; margin-bottom:15px; font-size:28px; font-weight:700; }
+
+.search-box{ width:100%; margin:10px 0; }
+.search-box input{
+    width:100%; padding:10px 15px; border:none; outline:none;
+    border-radius:20px; font-size:15px;
+    background: rgba(255,255,255,0.15); color:#fff;
+    backdrop-filter: blur(6px);
 }
 
-.navbar {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    position: fixed;
-    top: 0;
-    z-index: 10;
+.accordion-section{ margin-bottom:15px; }
+.accordion-header{
+    cursor:pointer; padding:12px 15px; background:rgba(255,255,255,0.15);
+    border-radius:12px; font-size:18px; font-weight:600;
 }
-
-.navbar img {
-    height: 50px;
-    opacity: 0.7;
+.accordion-header:hover{ background: rgba(255,255,255,0.25); }
+.accordion-content{ max-height:0; overflow:hidden; transition:max-height 0.3s ease; margin-top:5px; }
+.accordion-content ul{ list-style:none; padding:0; margin:0; }
+.accordion-content li{
+    margin-bottom:8px; padding:8px 12px; border-radius:10px;
+    background: rgba(255,255,255,0.08); line-height:1.5; font-size:14px;
 }
+.accordion-content li:hover{ background: rgba(255,255,255,0.2); transform:translateY(-1px); }
 
-.contenedor {
-    max-width: 1000px;
-    margin: auto;
-    margin-top: 100px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 25px;
-    padding: 30px 20px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+.highlight{ background:yellow; color:black; font-weight:bold; }
+
+.volver{
+    display:inline-block; padding:12px 25px; font-size:16px; font-weight:600;
+    color:#fff; text-decoration:none; border-radius:16px;
+    background: linear-gradient(45deg,#ff0033,#ff6600);
+    box-shadow:0 0 20px rgba(255,0,0,0.6); margin-top:20px;
 }
+.volver:hover{ transform:scale(1.05); box-shadow:0 0 35px rgba(255,0,0,0.8); }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 32px;
-    font-weight: 700;
+@media screen and (min-width:650px){
+    h1{ font-size:32px; }
+    .accordion-header{ font-size:20px; }
+    .accordion-content li{ font-size:16px; padding:10px 14px; }
+    .search-box input{ font-size:16px; }
 }
-
-.search-box {
-    width: 100%;
-    max-width: 400px;
-    margin: 15px auto 25px auto;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 12px 18px;
-    border-radius: 20px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-    backdrop-filter: blur(8px);
-}
-
-.accordion-section {
-    margin-bottom: 20px;
-}
-
-.accordion-header {
-    cursor: pointer;
-    padding: 15px 20px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 15px;
-    font-size: 20px;
-    font-weight: 600;
-    transition: background 0.3s ease;
-}
-
-.accordion-header:hover {
-    background: rgba(255,255,255,0.25);
-}
-
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    margin-top: 5px;
-}
-
-.accordion-content ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.accordion-content li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-    background: rgba(255,255,255,0.08);
-    padding: 12px 14px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    font-size: 16px;
-}
-
-.accordion-content li:hover {
-    background: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-}
-
-.highlight {
-    background-color: yellow;
-    color: black;
-    font-weight: bold;
-}
-
-.volver {
-    margin-top: 30px;
-    display: inline-block;
-    padding: 14px 28px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 18px;
-    background: linear-gradient(45deg, #ff0033, #ff6600);
-    box-shadow: 0 0 20px rgba(255,0,0,0.6);
-    transition: 0.3s;
-}
-
-.volver:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 35px rgba(255,0,0,0.8);
-}
-
-@media screen and (max-width: 1000px) {
-    h1 { font-size: 28px; }
-    .accordion-header { font-size: 18px; }
-    .accordion-content li { font-size: 15px; }
-    .search-box input { font-size: 15px; }
-}
-
-@media screen and (max-width: 650px) {
-    .contenedor {
-        padding: 20px 15px;
-    }
-    h1 { font-size: 24px; }
-    .accordion-header { font-size: 16px; }
-    .accordion-content li { font-size: 14px; padding: 10px 12px; }
-    .search-box input { font-size: 14px; }
-    .navbar img { height: 45px; }
+@media screen and (min-width:1000px){
+    h1{ font-size:36px; }
+    .accordion-header{ font-size:22px; }
+    .accordion-content li{ font-size:18px; padding:12px 16px; }
+    .search-box input{ font-size:18px; }
 }
 </style>
 </head>
 <body>
 
 <div class="navbar">
-    <img src="imagenes/logo capital rp.png" alt="Logo Capital RP">
+    <img src="logo capital rp.png" alt="Logo Capital RP">
 </div>
 
 <div class="contenedor">
-  <h1>📜 Normativa General de Roleplay</h1>
+<h1>📜 Normativa General de Roleplay</h1>
 
-  <div class="search-box">
+<div class="search-box">
     <input type="text" id="searchInput" placeholder="🔍 Buscar norma...">
-  </div>
+</div>
 
-  <!-- Secciones del acordeón -->
-  <div class="accordion-section">
+<!-- Acordeón -->
+<div class="accordion-section">
     <div class="accordion-header">Normas Generales</div>
     <div class="accordion-content">
-      <ul>
-        <li>1. El rol debe ser realista en todo momento.</li>
-        <li>2. Está prohibido romper rol (NRP) bajo cualquier circunstancia.</li>
-        <li>3. Todo jugador debe valorar su vida como en la vida real.</li>
-        <li>4. No se permite usar información fuera de rol para beneficio dentro del rol (MG).</li>
-        <li>5. Está prohibido forzar rol a otros jugadores.</li>
-        <li>6. El uso de hacks, exploits, bugs o scripts está totalmente prohibido.</li>
-        <li>7. No se permiten mods externos de ningún tipo (Roblox vanilla).</li>
-        <li>8. El rol +18 está totalmente prohibido, con o sin consentimiento.</li>
-        <li>9. No se permite lenguaje sexual, violento extremo o explícito.</li>
-        <li>10. Todas las instituciones deben ser respetadas (no es un servidor anárquico).</li>
-      </ul>
+        <ul>
+            <li>1. El rol debe ser realista en todo momento.</li>
+            <li>2. Está prohibido romper rol (NRP) bajo cualquier circunstancia.</li>
+            <li>3. Todo jugador debe valorar su vida como en la vida real.</li>
+            <li>4. No se permite usar información fuera de rol para beneficio dentro del rol (MG).</li>
+            <li>5. Está prohibido forzar rol a otros jugadores.</li>
+            <li>6. El uso de hacks, exploits, bugs o scripts está totalmente prohibido.</li>
+            <li>7. No se permiten mods externos de ningún tipo (Roblox vanilla).</li>
+            <li>8. El rol +18 está totalmente prohibido, con o sin consentimiento.</li>
+            <li>9. No se permite lenguaje sexual, violento extremo o explícito.</li>
+            <li>10. Todas las instituciones deben ser respetadas (no es un servidor anárquico).</li>
+        </ul>
     </div>
-  </div>
+</div>
 
-  <div class="accordion-section">
+<div class="accordion-section">
     <div class="accordion-header">Normas de Conducción y Choques</div>
     <div class="accordion-content">
-      <ul>
-        <li>11. La mala conducción (BD) está prohibida: exceso de velocidad sin razón, derrapes irreales o saltos imposibles.</li>
-        <li>12. Todo choque debe rolearse obligatoriamente.</li>
-        <li>13. Para rolear un choque se debe usar comandos como: /me se soba, /do presenta dolor.</li>
-        <li>14. Está prohibido gritar por micro o chat en el rol de choque.</li>
-        <li>15. Si vas en persecución y chocas, debes rolear el choque mínimo 5-10 segundos según la gravedad.</li>
-        <li>16. Si te vuelcas, debes tirarte al suelo o quedar inconsciente según la situación.</li>
-        <li>17. Estas normas aplican para policías, SAMU, civiles y criminales.</li>
-      </ul>
+        <ul>
+            <li>11. La mala conducción (BD) está prohibida: exceso de velocidad sin razón, derrapes irreales o saltos imposibles.</li>
+            <li>12. Todo choque debe rolearse obligatoriamente.</li>
+            <li>13. Para rolear un choque se debe usar comandos como: /me se soba, /do presenta dolor.</li>
+            <li>14. Está prohibido gritar por micro o chat en el rol de choque.</li>
+            <li>15. Si vas en persecución y chocas, debes rolear el choque mínimo 5-10 segundos según la gravedad.</li>
+            <li>16. Si te vuelcas, debes tirarte al suelo o quedar inconsciente según la situación.</li>
+            <li>17. Estas normas aplican para policías, SAMU, civiles y criminales.</li>
+        </ul>
     </div>
-  </div>
+</div>
 
-  <div class="accordion-section">
+<div class="accordion-section">
     <div class="accordion-header">Zonas Seguras</div>
     <div class="accordion-content">
-      <ul>
-        <li>18. Las zonas seguras deben ser respetadas.</li>
-        <li>19. Está prohibido iniciar roles violentos dentro de zonas seguras.</li>
-        <li>20. Si un jugador entra a una zona segura durante persecución o seguimiento, el rol continúa.</li>
-        <li>21. No se puede cortar un rol solo por ingresar a una zona segura.</li>
-      </ul>
+        <ul>
+            <li>18. Las zonas seguras deben ser respetadas.</li>
+            <li>19. Está prohibido iniciar roles violentos dentro de zonas seguras.</li>
+            <li>20. Si un jugador entra a una zona segura durante persecución o seguimiento, el rol continúa.</li>
+            <li>21. No se puede cortar un rol solo por ingresar a una zona segura.</li>
+        </ul>
     </div>
-  </div>
+</div>
 
-  <div class="accordion-section">
+<div class="accordion-section">
     <div class="accordion-header">Normativa Policial y Legal</div>
     <div class="accordion-content">
-      <ul>
-        <li>22. Carabineros y PDI deben respetar su rol institucional.</li>
-        <li>23. El tiempo máximo de detención en cárcel es de 30 minutos.</li>
-        <li>24. Superado ese tiempo, el detenido debe ser liberado sin antecedentes.</li>
-        <li>25. Está prohibido eliminar jugadores por cuenta propia.</li>
-        <li>26. Está prohibido que instituciones se coludan para eliminar otras instituciones.</li>
-        <li>27. Fiscalía, PDI y Carabineros deben respetarse mutuamente.</li>
-        <li>28. El servidor no es anárquico, existe jerarquía y legalidad.</li>
-        <li>29. Los abusos de poder serán sancionados severamente.</li>
-      </ul>
+        <ul>
+            <li>22. Carabineros y PDI deben respetar su rol institucional.</li>
+            <li>23. El tiempo máximo de detención en cárcel es de 30 minutos.</li>
+            <li>24. Superado ese tiempo, el detenido debe ser liberado sin antecedentes.</li>
+            <li>25. Está prohibido eliminar jugadores por cuenta propia.</li>
+            <li>26. Está prohibido que instituciones se coludan para eliminar otras instituciones.</li>
+            <li>27. Fiscalía, PDI y Carabineros deben respetarse mutuamente.</li>
+            <li>28. El servidor no es anárquico, existe jerarquía y legalidad.</li>
+            <li>29. Los abusos de poder serán sancionados severamente.</li>
+        </ul>
     </div>
-  </div>
+</div>
 
-  <div class="accordion-section">
+<div class="accordion-section">
     <div class="accordion-header">Normas Finales</div>
     <div class="accordion-content">
-      <ul>
-        <li>30. La ignorancia de las normas no exime de sanción.</li>
-        <li>31. Las decisiones del staff deben ser respetadas.</li>
-        <li>32. El staff puede sancionar cualquier acción no contemplada pero que rompa el RP.</li>
-        <li>33. Estas normas pueden ser modificadas sin previo aviso.</li>
-      </ul>
+        <ul>
+            <li>30. La ignorancia de las normas no exime de sanción.</li>
+            <li>31. Las decisiones del staff deben ser respetadas.</li>
+            <li>32. El staff puede sancionar cualquier acción no contemplada pero que rompa el RP.</li>
+            <li>33. Estas normas pueden ser modificadas sin previo aviso.</li>
+        </ul>
     </div>
-  </div>
+</div>
 
-  <a href="index.html" class="volver">⬅ Volver al Inicio</a>
+<a href="index.html" class="volver">⬅ Volver al Inicio</a>
 </div>
 
 <script>
-// Acordeón
 const accHeaders = document.querySelectorAll('.accordion-header');
 accHeaders.forEach(header => {
     header.addEventListener('click', () => {
         const content = header.nextElementSibling;
-        if(content.style.maxHeight) {
+        if(content.style.maxHeight){
             content.style.maxHeight = null;
         } else {
-            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+            document.querySelectorAll('.accordion-content').forEach(c=>c.style.maxHeight=null);
             content.style.maxHeight = content.scrollHeight + "px";
         }
     });
 });
 
-// Búsqueda con resaltado
 const searchInput = document.getElementById('searchInput');
 const normas = document.querySelectorAll('.accordion-content li');
-
-searchInput.addEventListener('keyup', function() {
+searchInput.addEventListener('keyup', function(){
     const filter = searchInput.value.toLowerCase();
-    normas.forEach(li => {
+    normas.forEach(li=>{
         const text = li.textContent.toLowerCase();
-        if(text.includes(filter)) {
-            li.style.display = '';
-            li.innerHTML = li.textContent.replace(
-                new RegExp(filter, 'gi'),
-                match => `<span class="highlight">${match}</span>`
-            );
+        if(text.includes(filter)){
+            li.style.display='';
+            li.innerHTML = li.textContent.replace(new RegExp(filter,'gi'), match=>`<span class="highlight">${match}</span>`);
             li.closest('.accordion-content').style.maxHeight = li.closest('.accordion-content').scrollHeight + "px";
-        } else {
-            li.style.display = 'none';
-        }
+        } else li.style.display='none';
     });
 });
 </script>
