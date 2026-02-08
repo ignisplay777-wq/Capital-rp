@@ -3,157 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Capital RP / INICIO</title>
+<title>Capital RP | Inicio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  font-family: 'Poppins', Arial, sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:'Poppins',sans-serif;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(270deg, #03d9ff, #0026fe, #00ff55, #009b15);
-  background-size: 800% 800%;
-  animation: gradientMove 20s ease infinite;
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top,#00d4ff33,transparent 40%),
+    linear-gradient(270deg,#050b1e,#0a1a3a,#081a2a,#050b1e);
+  background-size:800% 800%;
+  animation:bgMove 22s ease infinite;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-.inicio img {
-  width: 350px;
-  margin-bottom: 40px;
+/* CONTENEDOR PRINCIPAL */
+.card{
+  width:92%;
+  max-width:520px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  border-radius:26px;
+  padding:34px 26px;
+  text-align:center;
+  box-shadow:
+    0 0 40px rgba(0,0,0,.6),
+    inset 0 0 0 1px rgba(255,255,255,.08);
+  animation:fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(25px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* LOGO */
+.logo{
+  width:260px;
+  max-width:80%;
+  margin-bottom:24px;
+  filter:drop-shadow(0 0 25px rgba(0,200,255,.5));
+}
+
+/* TEXTO */
+.title{
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.subtitle{
+  font-size:14px;
+  opacity:.75;
+  margin-bottom:28px;
+}
+
+/* BOTONES */
+.buttons{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
 /* BOTÓN ACCEDER */
-.boton-dc {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  padding: 18px 36px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 20px rgba(0, 190, 255, 0.5),
-              0 0 40px rgba(0, 190, 255, 0.3);
-  transition: all 0.3s ease;
-  position: relative;
-  margin-bottom: 18px;
+.btn-enter{
+  padding:16px;
+  border-radius:18px;
+  background:linear-gradient(45deg,#00c6ff,#0072ff);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:17px;
+  box-shadow:0 0 25px rgba(0,123,255,.55);
+  transition:.25s ease;
 }
 
-.boton-dc::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border-radius: 25px;
-  background: linear-gradient(45deg, #00f0ff, #0026fe, #00ff55, #009b15);
-  filter: blur(20px);
-  opacity: 0.6;
-  z-index: -1;
-  transition: opacity 0.3s ease;
-}
-
-.boton-dc:hover::before {
-  opacity: 1;
-}
-
-.boton-dc:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(0, 190, 255, 0.7),
-              0 0 50px rgba(0, 190, 255, 0.5);
+.btn-enter:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 40px rgba(0,198,255,.9);
 }
 
 /* BOTÓN DISCORD */
-.boton-discord {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 16px 34px;
-  font-size: 22px;
-  font-weight: 600;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 20px;
-  background: rgba(114,137,218,0.18);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 2px solid rgba(114,137,218,0.35);
-  box-shadow: 0 0 20px rgba(114,137,218,0.55),
-              0 0 40px rgba(114,137,218,0.35);
-  position: relative;
-  transition: all 0.3s ease;
+.btn-discord{
+  padding:15px;
+  border-radius:18px;
+  background:rgba(114,137,218,.18);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  border:1px solid rgba(114,137,218,.35);
+  transition:.25s ease;
 }
 
-.boton-discord::before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border-radius: 25px;
-  background: linear-gradient(45deg,#5865F2,#7289DA,#99AAB5);
-  filter: blur(18px);
-  opacity: 0.6;
-  z-index: -1;
-  transition: opacity 0.3s ease;
+.btn-discord img{
+  width:26px;
+  height:26px;
 }
 
-.boton-discord:hover::before {
-  opacity: 1;
+.btn-discord:hover{
+  background:rgba(114,137,218,.28);
+  transform:scale(1.04);
+  box-shadow:0 0 35px rgba(114,137,218,.75);
 }
 
-.boton-discord:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 28px rgba(114,137,218,0.8),
-              0 0 55px rgba(114,137,218,0.6);
-}
-
-.boton-discord img {
-  width: 34px;
-  height: 34px;
+/* RESPONSIVE */
+@media(min-width:700px){
+  .title{font-size:30px}
+  .subtitle{font-size:15px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="inicio">
-  <img src="logo capital rp.png" alt="Logo Capital RP">
+<div class="card">
+
+  <img src="logo capital rp.png" alt="Capital RP" class="logo">
+
+  <div class="title">Capital RP</div>
+  <div class="subtitle">Sistema oficial.</div>
+
+  <div class="buttons">
+    <a href="pagina.html" class="btn-enter">
+      Acceder al Sistema
+    </a>
+
+    <a href="https://discord.gg/yfQRnM9m2s"
+       target="_blank"
+       class="btn-discord">
+      <img src="logo-discord.png" alt="Discord">
+      Unirse al Discord
+    </a>
+  </div>
+
 </div>
-
-<a class="boton-dc" href="pagina.html">
-  <span>ACCEDER</span>
-</a>
-
-<a class="boton-discord"
-   href="https://discord.gg/yfQRnM9m2s"
-   target="_blank">
-  <img src="logo-discord.png" alt="Discord">
-  <span>IR A DISCORD</span>
-</a>
 
 </body>
 </html>
