@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital RP | Normativa Discord</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(270deg,#005b6b,#011274,#004718,#45005a);
+  background-size: 800% 800%;
+  animation: gradientMove 20s ease infinite;
+  color: #fff;
+  padding-top: 75px;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  z-index: 10;
+}
+
+.navbar img {
+  height: 45px;
+  opacity: 0.7;
+}
+
+/* CONTENEDOR */
+.contenedor {
+  width: 94%;
+  max-width: 900px;
+  margin: auto;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+h1 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+/* BUSCADOR */
+.search-box {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  font-size: 14px;
+}
+
+/* SECCIONES */
+.section {
+  margin-bottom: 14px;
+}
+
+.section-title {
+  background: rgba(255,255,255,0.18);
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.section-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.section-content li {
+  background: rgba(255,255,255,0.1);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.highlight {
+  background: yellow;
+  color: black;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+/* BOTÓN AZUL */
+.volver {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 22px auto 0 auto;
+  padding: 16px;
+  text-align: center;
+  border-radius: 22px;
+  background: rgba(0,150,255,0.75);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 6px 40px rgba(0,150,255,0.55);
+  backdrop-filter: blur(15px);
+  transition: all 0.25s ease;
+}
+
+.volver:hover {
+  background: rgba(0,200,255,0.9);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 50px rgba(0,200,255,0.65);
+}
+
+/* RESPONSIVE */
+@media (min-width: 700px) {
+  h1 { font-size: 30px; }
+  .section-title { font-size: 18px; }
+  .section-content li { font-size: 15px; }
+}
+
+@media (min-width: 1000px) {
+  h1 { font-size: 34px; }
+  .section-title { font-size: 20px; }
+  .section-content li { font-size: 16px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <img src="logo capital rp.png" alt="Logo Capital RP">
+</div>
+
+<div class="contenedor">
+<h1>📜 Normativa de Discord</h1>
+
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="🔍 Buscar norma...">
+</div>
+
+<div class="section">
+  <div class="section-title">Normas Generales</div>
+  <div class="section-content">
+    <ul>
+      <li>1. El respeto es obligatorio en todo momento.</li>
+      <li>2. Está prohibido cualquier contenido +18.</li>
+      <li>3. No lenguaje sexual, insinuaciones o referencias explícitas.</li>
+      <li>4. Prohibidos insultos con intención de dañar.</li>
+      <li>5. Prohibida la homofobia.</li>
+      <li>6. Prohibido el racismo.</li>
+      <li>7. Prohibido el clasismo.</li>
+      <li>8. Prohibida la discriminación a extranjeros.</li>
+      <li>9. No se permite promover odio o violencia.</li>
+      <li>10. No acoso ni hostigamiento.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Uso del Chat</div>
+  <div class="section-content">
+    <ul>
+      <li>11. Prohibido el spam o flood.</li>
+      <li>12. No uso excesivo de mayúsculas.</li>
+      <li>13. No desvirtuar canales.</li>
+      <li>14. No provocar peleas intencionalmente.</li>
+      <li>15. No enviar links maliciosos.</li>
+      <li>16. No discutir sanciones en público.</li>
+      <li>17. Usar cada canal para su finalidad.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Convivencia y Respeto</div>
+  <div class="section-content">
+    <ul>
+      <li>18. Respeto obligatorio entre usuarios.</li>
+      <li>19. Respeto obligatorio al staff.</li>
+      <li>20. No burlarse de sanciones.</li>
+      <li>21. No incitar a romper normas.</li>
+      <li>22. Prohibidas amenazas, incluso en broma.</li>
+      <li>23. No divulgar información privada.</li>
+      <li>24. No suplantar identidad.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Seguridad y Staff</div>
+  <div class="section-content">
+    <ul>
+      <li>25. Prohibido compartir cuentas.</li>
+      <li>26. No evadir sanciones.</li>
+      <li>27. No usar bots sin permiso.</li>
+      <li>28. No promover hacks o exploits.</li>
+      <li>29. El staff puede sancionar conductas no listadas.</li>
+      <li>30. La ignorancia de las normas no exime sanción.</li>
+      <li>31. El incumplimiento reiterado implica sanción mayor.</li>
+      <li>32. Las decisiones del staff deben respetarse.</li>
+    </ul>
+  </div>
+</div>
+
+<a href="pagina.html" class="volver">⬅ Salir al Inicio</a>
+
+</div>
+
+<script>
+document.querySelectorAll('.section-title').forEach(title => {
+  title.addEventListener('click', () => {
+    const content = title.nextElementSibling;
+    content.style.maxHeight
+      ? content.style.maxHeight = null
+      : content.style.maxHeight = content.scrollHeight + "px";
+  });
+});
+
+const search = document.getElementById('searchInput');
+const items = document.querySelectorAll('.section-content li');
+
+search.addEventListener('keyup', () => {
+  const value = search.value.toLowerCase();
+  items.forEach(li => {
+    const text = li.textContent.toLowerCase();
+    if (text.includes(value)) {
+      li.style.display = '';
+      li.innerHTML = li.textContent.replace(
+        new RegExp(value, 'gi'),
+        m => `<span class="highlight">${m}</span>`
+      );
+      li.closest('.section-content').style.maxHeight =
+        li.closest('.section-content').scrollHeight + "px";
+    } else {
+      li.style.display = 'none';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
