@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital RP | Normativa PJ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+html, body {
+  margin:0;
+  padding:0;
+  font-family:'Poppins', Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(270deg,#1337ac, #243469, #152147, #0d34c2bd);
+  background-size: 800% 800%;
+  animation: gradientMove 20s ease infinite;
+  color:#fff;
+  padding-top:80px;
+}
+
+@keyframes gradientMove {
+  0% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+
+/* NAVBAR */
+.navbar {
+  width:100%;
+  display:flex;
+  justify-content:center;
+  padding:10px 15px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  position:fixed;
+  top:0;
+  z-index:10;
+}
+
+.navbar img {
+  height:45px;
+  opacity:0.7;
+}
+
+/* CONTENEDOR */
+.contenedor {
+  width:90%;
+  max-width:900px;
+  margin:auto;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 0 30px rgba(0,0,0,0.6);
+}
+
+h1 {
+  text-align:center;
+  margin-bottom:20px;
+  font-size:28px;
+  font-weight:700;
+}
+
+/* ACORDEÓN */
+.accordion-section { margin-bottom:15px; }
+
+.accordion-header {
+  cursor:pointer;
+  padding:12px 15px;
+  background:rgba(255,255,255,0.18);
+  border-radius:14px;
+  font-size:18px;
+  font-weight:600;
+}
+
+.accordion-header:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+.accordion-content {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.35s ease;
+  margin-top:6px;
+}
+
+.accordion-content ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.accordion-content li {
+  margin-bottom:8px;
+  padding:9px 13px;
+  border-radius:12px;
+  background: rgba(255,255,255,0.1);
+  line-height:1.5;
+  font-size:14px;
+}
+
+/* IMÁGENES */
+.img-box {
+  margin-top:10px;
+  text-align:center;
+}
+
+.img-box img {
+  width:100%;
+  max-width:600px;
+  border-radius:16px;
+  box-shadow:0 10px 35px rgba(0,0,0,0.6);
+  margin-bottom:10px;
+}
+
+.img-box p {
+  font-size:14px;
+  opacity:0.85;
+}
+
+/* BOTÓN */
+.volver {
+  display:block;
+  width:100%;
+  max-width:420px;
+  margin:25px auto 0 auto;
+  padding:16px;
+  text-align:center;
+  border-radius:22px;
+  background: rgba(0,150,255,0.75);
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:18px;
+  box-shadow:0 6px 40px rgba(0,150,255,0.55);
+  backdrop-filter: blur(15px);
+  transition: all 0.25s ease;
+}
+
+.volver:hover {
+  background: rgba(0,200,255,0.9);
+  transform: translateY(-4px);
+}
+
+/* RESPONSIVE */
+@media screen and (min-width:650px){
+  h1 { font-size:32px; }
+  .accordion-header { font-size:20px; }
+  .accordion-content li { font-size:16px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <img src="logo capital rp.png" alt="Logo Capital RP">
+</div>
+
+<div class="contenedor">
+<h1>👤 Normativa PJ</h1>
+
+<!-- CUERPOS -->
+<div class="accordion-section">
+  <div class="accordion-header">Cuerpo del Personaje</div>
+  <div class="accordion-content">
+    <ul>
+      <li>1. El cuerpo del PJ debe ser realista y acorde al rol.</li>
+      <li>2. No se permiten cuerpos exagerados o irreales.</li>
+    </ul>
+
+    <div class="img-box">
+      <img src="cuerpo roblox.jpg" alt="Cuerpo permitido">
+      <p>Ejemplo de cuerpos permitidos para personajes.</p>
+    </div>
+  </div>
+</div>
+
+<!-- COLORES DE PIEL -->
+<div class="accordion-section">
+  <div class="accordion-header">Colores de Piel Autorizados</div>
+  <div class="accordion-content">
+    <ul>
+      <li>3. El color de piel debe estar dentro de los tonos humanos reales.</li>
+      <li>4. No se permiten colores fantasía o irreales.</li>
+    </ul>
+
+    <div class="img-box">
+      <img src="colores.jpg" alt="Colores de piel">
+      <p>Colores de piel autorizados para tu personaje.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PJ MUJER -->
+<div class="accordion-section">
+  <div class="accordion-header">Personajes Femeninos</div>
+  <div class="accordion-content">
+    <ul>
+      <li>5. Si tu PJ es mujer, están permitidos todos los cuerpos.</li>
+      <li>6. Siempre deben mantenerse dentro de lo realista.</li>
+      <li>7. No se permiten proporciones irreales o exageradas.</li>
+    </ul>
+  </div>
+</div>
+
+<a href="pagina.html" class="volver">⬅ Volver al Inicio</a>
+</div>
+
+<script>
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const content = header.nextElementSibling;
+    content.style.maxHeight
+      ? content.style.maxHeight = null
+      : content.style.maxHeight = content.scrollHeight + "px";
+  });
+});
+</script>
+
+</body>
+</html>
