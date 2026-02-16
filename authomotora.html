@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Capital RP | Catálogo de Vehículos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0f172a,#020617);
+  color:#e5e7eb;
+}
+
+/* SIDEBAR */
+.sidebar{
+  position:fixed; top:0; left:0;
+  width:250px; height:100%;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(15px);
+  border-right:1px solid rgba(255,255,255,.08);
+  padding:20px;
+  transition:.3s;
+  z-index:20;
+}
+.sidebar h2{ text-align:center; margin-bottom:25px; }
+.sidebar a{
+  display:block;
+  padding:12px;
+  margin-bottom:10px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#e5e7eb;
+  background:rgba(255,255,255,.05);
+  transition:.2s;
+}
+.sidebar a:hover{ background:rgba(59,130,246,.35); transform:translateX(5px); }
+
+/* BOTON MENU */
+.menu-btn{
+  display:none;
+  position:fixed; top:15px; left:15px;
+  background:#2563eb;
+  color:white;
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  z-index:30;
+}
+
+/* MAIN */
+.main{ margin-left:250px; padding:40px 20px; }
+.container{ max-width:1200px; margin:auto; }
+h1{ text-align:center; margin-bottom:30px; }
+
+/* FILTROS */
+.filters{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-bottom:20px;
+}
+.filters input,.filters select{
+  padding:10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.1);
+  background:#020617;
+  color:#fff;
+}
+
+/* INFO */
+.info-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+  opacity:.9;
+  font-size:14px;
+}
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+/* CARDS */
+.car{
+  display:flex;
+  gap:20px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:20px;
+  transition:.3s;
+}
+.car:hover{ transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,.4); }
+.car img{
+  width:200px; height:130px;
+  object-fit:cover;
+  border-radius:10px;
+  background:#0b1224;
+}
+.car-info span{ display:block; font-size:14px; margin-bottom:5px; }
+.car-info strong{ color:#60a5fa; }
+
+/* DEBUG */
+#debug{
+  display:none;
+  white-space:pre-wrap;
+  font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+  background:rgba(255,0,0,.08);
+  border:1px solid rgba(255,0,0,.25);
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:18px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{left:-100%}
+  .sidebar.active{left:0}
+  .menu-btn{display:block}
+  .main{margin-left:0;padding-top:80px}
+  .filters{grid-template-columns:1fr 1fr}
+  .car{flex-direction:column}
+  .car img{width:100%;height:200px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<div class="sidebar" id="sidebar">
+  <h2> Capital RP</h2>
+  <a href="pagina.html"> Inicio</a>
+  <a href="authomotora.html"> Catálogo</a>
+</div>
+
+<div class="main">
+  <div class="container">
+    <h1>Catálogo Oficial</h1>
+
+    <div id="debug"></div>
+
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Buscar por marca o modelo">
+      <select id="gamaFilter">
+        <option value="">Todas</option>
+        <option value="regular">Regular</option>
+        <option value="classic">Classic</option>
+        <option value="prestige">Prestige</option>
+        <option value="electric">Electric</option>
+        <option value="police">Police</option>
+      </select>
+      <input type="number" id="minPrice" placeholder="Precio mínimo (CLP)">
+      <input type="number" id="maxPrice" placeholder="Precio máximo (CLP)">
+      <input type="number" id="yearFilter" placeholder="Año">
+    </div>
+
+    <div class="info-bar">
+      <span class="badge" id="countBadge">0 vehículos</span>
+    </div>
+
+    <div id="carList"></div>
+  </div>
+</div>
+
+<script>
+/* === Mostrar errores en pantalla (así NO queda blanco sin explicación) === */
+window.addEventListener("error", (e)=>{
+  const box = document.getElementById("debug");
+  box.style.display = "block";
+  box.textContent =
+    "ERROR: " + (e.message || "desconocido") +
+    "\\nArchivo: " + (e.filename || "") +
+    "\\nLínea: " + (e.lineno || "");
+});
+
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("active");
+}
+
+/* =========================
+   IMAGEN POR DEFECTO (si falta o falla)
+========================= */
+const DEFAULT_IMG = "https://via.placeholder.com/400x250?text=Sin+Imagen";
+
+/* =========================
+   ✅ AUTOS (edita SOLO: precio e img)
+   - precio: número en CLP (0 = FREE)
+   - img: link https://... o ruta "img/autos/archivo.jpg"
+========================= */
+const carsData = [
+  {nombre:"Chevlon Corbeta 1M Edition", marca:"Chevrolet", anio:2014, precio:85000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/0/0a/Chevlon_Corbeta_2014_1M_Edition.png/revision/latest/scale-to-width-down/180?cb=20250313130635", gama:"prestige", tipo:"Coupe", top:153, acc:"4.58", combustible:"Gasoline"},
+
+  {nombre:"Chevlon Antelope", marca:"Chevrolet", anio:1994, precio:0, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/7/73/Chevlon_Antelope_1994.png/revision/latest/scale-to-width-down/180?cb=20260119082450://static.wikia.nocookie.net/emergency-response-liberty-county/images/a/a8/Falcon_Advance_100_Holiday_Edition_1956.png/revision/latest/scale-to-width-down/180?cb=20241228170303", gama:"regular", tipo:"Sedan", top:74, acc:"5.88", combustible:"Gasoline"},
+  {nombre:"Stuttgart Executive", marca:"Mercedes-Benz", anio:2021, precio:50000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/7/74/Stuttgart_Executive_2021.png/revision/latest/scale-to-width-down/180?cb=20240217205858", gama:"prestige", tipo:"Sedan", top:128, acc:"5.24", combustible:"Gasoline"},
+  {nombre:"Bullhorn Foreman", marca:"Dodge", anio:1988, precio:5000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/e/ee/Bullhorn_Foreman_1988.png/revision/latest/scale-to-width-down/180?cb=20241013182757", gama:"classic", tipo:"Sedan", top:119, acc:"5.97", combustible:"Gasoline"},
+  {nombre:"Chevlon Amigo LZR", marca:"Chevrolet", anio:2016, precio:45000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/26/Chevlon_Amigo_LZR_2016.png/revision/latest/scale-to-width-down/180?cb=20240928204033", gama:"regular", tipo:"Coupe", top:121, acc:"5.75", combustible:"Gasoline"},
+  {nombre:"Leland Birchwood Hearse", marca:"Cadillac", anio:1995, precio:15000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/0/08/Leland_Birchwood_Hearse_1995.png/revision/latest/scale-to-width-down/180?cb=20260119083220", gama:"regular", tipo:"Sedan", top:126, acc:"6.42", combustible:"Gasoline"},
+
+  {nombre:"Lawn Mower", marca:"John Deere", anio:2024, precio:100000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/1/1f/Lawn_Mower.png/revision/latest/scale-to-width-down/180?cb=20240416152404", gama:"regular", tipo:"ATV", top:11, acc:"N/A", combustible:"Gasoline"},
+  {nombre:"Chevlon Camion", marca:"Chevrolet", anio:2002, precio:8500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/9/90/Chevlon_Camion_2002.png/revision/latest/scale-to-width-down/180?cb=20221231082949", gama:"regular", tipo:"SUV", top:98, acc:"8.40", combustible:"Gasoline"},
+  {nombre:"Overland Apache", marca:"Jeep", anio:1995, precio:9500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/29/Overland_Apache_1995.png/revision/latest/scale-to-width-down/180?cb=20231216224307", gama:"regular", tipo:"SUV", top:110, acc:"9.20", combustible:"Gasoline"},
+  {nombre:"Chevlon Captain", marca:"Chevrolet", anio:2009, precio:7000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/4/48/Chevlon_Captain_2009.png/revision/latest/scale-to-width-down/180?cb=20250106170830", gama:"regular", tipo:"Sedan", top:126, acc:"5.82", combustible:"Gasoline"},
+  {nombre:"Falcon Traveller", marca:"Ford", anio:2003, precio:12500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/6/6c/Falcon_Traveller_2003.png/revision/latest/scale-to-width-down/180?cb=20230405021529", gama:"regular", tipo:"SUV", top:128, acc:"7.60", combustible:"Gasoline"},
+
+  {nombre:"4-Wheeler", marca:"Yamaha", anio:2024, precio:3000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/a/a8/4-Wheeler_main.png/revision/latest/scale-to-width-down/180?cb=20240718194555", gama:"regular", tipo:"ATV", top:60, acc:"4.73", combustible:"Gasoline"},
+  {nombre:"Vellfire Evertt", marca:"Toyota", anio:1995, precio:8500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/5/5b/Vellfire_Evertt_1995.png/revision/latest/scale-to-width-down/180?cb=20240419195417", gama:"regular", tipo:"Truck", top:124, acc:"7.17", combustible:"Gasoline"},
+  {nombre:"Chevlon L-15", marca:"Chevrolet", anio:1981, precio:7000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/e/e7/Chevlon_L-15_1981.png/revision/latest/scale-to-width-down/180?cb=20241014161128", gama:"classic", tipo:"Truck", top:121, acc:"6.58", combustible:"Gasoline"},
+  {nombre:"Vellfire Prima", marca:"Toyota", anio:2009, precio:6000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/c/c4/Vellfire_Prima_2009.png/revision/latest/scale-to-width-down/180?cb=20240420082457", gama:"regular", tipo:"Sedan", top:66, acc:"4.96", combustible:"Gasoline"},
+  {nombre:"Elysion Slick", marca:"Honda", anio:2014, precio:7500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/1/11/Elysion_Slick_2014.png/revision/latest/scale-to-width-down/180?cb=20221231232923", gama:"regular", tipo:"Sedan", top:107, acc:"5.60", combustible:"Gasoline"},
+
+  {nombre:"Chevlon Landslide", marca:"Chevrolet", anio:2007, precio:13000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/8/82/Chevlon_Landslide_2007.png/revision/latest/scale-to-width-down/180?cb=20221231113454", gama:"regular", tipo:"Truck", top:128, acc:"7.99", combustible:"Gasoline"},
+  {nombre:"Chevlon Inferno", marca:"Chevrolet", anio:1981, precio:8500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/6/67/Chevlon_Inferno_1981.png/revision/latest/scale-to-width-down/180?cb=20241109151503", gama:"classic", tipo:"Truck", top:135, acc:"8.17", combustible:"Gasoline"},
+  {nombre:"Navara Imperium", marca:"Nissan", anio:2020, precio:17000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/c/c3/Navara_Imperium_2020.png/revision/latest/scale-to-width-down/180?cb=20240420120157", gama:"regular", tipo:"Sedan", top:110, acc:"4.87", combustible:"Gasoline"},
+  {nombre:"Chevlon L-35 Extended", marca:"Chevrolet", anio:1981, precio:9000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/24/Chevlon_L-35_Extended_1981.png/revision/latest/scale-to-width-down/180?cb=20241020154712", gama:"classic", tipo:"Truck", top:121, acc:"6.68", combustible:"Gasoline"},
+  {nombre:"Chevlon Commuter Van", marca:"Chevrolet", anio:2006, precio:8000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/d/d8/Chevlon_Commuter_Van_2006.png/revision/latest/scale-to-width-down/180?cb=20221231102938", gama:"regular", tipo:"Industrial", top:84, acc:"6.33", combustible:"Gasoline"},
+
+  {nombre:"Leland LTS", marca:"Cadillac", anio:2010, precio:18000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/8/83/Leland_LTS_2010.png/revision/latest/scale-to-width-down/180?cb=20230405032127", gama:"regular", tipo:"Sedan", top:122, acc:"6.30", combustible:"Gasoline"},
+  {nombre:"Chevlon Camion", marca:"Chevrolet", anio:2008, precio:14700000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/fd/Chevlon_Camion_2008.png/revision/latest/scale-to-width-down/180?cb=20221231082448", gama:"regular", tipo:"SUV", top:126, acc:"7.17", combustible:"Gasoline"},
+  {nombre:"Chevlon Corbeta C2", marca:"Chevrolet", anio:1967, precio:57000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/28/Chevlon_Corbeta_C2_1967.png/revision/latest/scale-to-width-down/180?cb=20240505224821", gama:"classic", tipo:"Coupe", top:140, acc:"6.80", combustible:"Gasoline"},
+  {nombre:"Bullhorn BH15", marca:"Ram", anio:2009, precio:25000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/c/ca/Bullhorn_BH15_2009.png/revision/latest/scale-to-width-down/180?cb=20221231072622", gama:"regular", tipo:"Truck", top:127, acc:"7.19", combustible:"Gasoline"},
+  {nombre:"Sentinel Platinum", marca:"Lincoln", anio:1968, precio:7500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/1/19/Sentinel_Platinum_1968.png/revision/latest/scale-to-width-down/180?cb=20241109094441", gama:"classic", tipo:"Sedan", top:107, acc:"5.60", combustible:"Gasoline"},
+
+  {nombre:"Chevlon Camion", marca:"Chevrolet", anio:2018, precio:9500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/fe/Chevlon_Camion_2018.png/revision/latest/scale-to-width-down/180?cb=20221231084205", gama:"regular", tipo:"SUV", top:131, acc:"7.18", combustible:"Gasoline"},
+  {nombre:"Vellfire Runabout", marca:"Toyota", anio:1984, precio:17500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/29/Vellfire_Runabout_1984.png/revision/latest/scale-to-width-down/180?cb=20240307211158", gama:"classic", tipo:"Coupe", top:107, acc:"5.07", combustible:"Gasoline"},
+  {nombre:"Falcon Scavenger", marca:"Ford", anio:2016, precio:19000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/4/4a/Falcon_Scavenger_2016.png/revision/latest/scale-to-width-down/180?cb=20240601191314", gama:"regular", tipo:"SUV", top:127, acc:"6.70", combustible:"Gasoline"},
+  {nombre:"Chevlon Revver", marca:"Chevrolet", anio:2005, precio:35000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/7/7a/Chevlon_Revver_2005.png/revision/latest/scale-to-width-down/180?cb=20221231225055", gama:"regular", tipo:"SUV", top:132, acc:"7.65", combustible:"Gasoline"},
+  {nombre:"Overland Apache", marca:"Jeep", anio:2011, precio:35000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/7/71/Overland_Apache_2011.png/revision/latest/scale-to-width-down/180?cb=20240418154646", gama:"regular", tipo:"SUV", top:128, acc:"6.48", combustible:"Gasoline"},
+
+  {nombre:"Overland Buckaroo", marca:"Jeep", anio:2018, precio:45000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/4/4f/Overland_Buckaroo_2018.png/revision/latest/scale-to-width-down/180?cb=20240426095440", gama:"regular", tipo:"SUV", top:131, acc:"7.73", combustible:"Gasoline"},
+  {nombre:"Chryslus Champion", marca:"Chrysler", anio:2005, precio:12000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/20/Chryslus_Champion_2005.png/revision/latest/scale-to-width-down/180?cb=20221231230528", gama:"regular", tipo:"Sedan", top:100, acc:"5.25", combustible:"Gasoline"},
+  {nombre:"Vellfire Riptide", marca:"Toyota", anio:2020, precio:18000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/f9/Vellfire_Riptide_2020.png/revision/latest/scale-to-width-down/180?cb=20230923054953", gama:"regular", tipo:"SUV", top:136, acc:"7.15", combustible:"Gasoline"},
+  {nombre:"Bullhorn Prancer", marca:"Dodge", anio:2011, precio:48000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/24/Bullhorn_Prancer_2011.png/revision/latest/scale-to-width-down/180?cb=20260207180949", gama:"regular", tipo:"Sedan", top:126, acc:"5.38", combustible:"Gasoline"},
+  {nombre:"Navara Boundary", marca:"Nissan", anio:2022, precio:37000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/0/05/Navara_Boundary_2022.png/revision/latest/scale-to-width-down/180?cb=20250106215305", gama:"regular", tipo:"Truck", top:140, acc:"7.47", combustible:"Gasoline"},
+
+  {nombre:"Celestial Type-6", marca:"Tesla", anio:2023, precio:56000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/9/96/Celestial_Type-6_2023.png/revision/latest/scale-to-width-down/180?cb=20240428143713", gama:"electric", tipo:"Sedan", top:145, acc:"3.79", combustible:"Electric"},
+  {nombre:"Arrow Phoenix Nationals", marca:"Pontiac", anio:1977, precio:47000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/6/63/Arrow_Phoenix_Nationals_1977.png/revision/latest/scale-to-width-down/180?cb=20241109171337", gama:"classic", tipo:"Coupe", top:123, acc:"6.93", combustible:"Gasoline"},
+
+  {nombre:"Bullhorn Prancer", marca:"Dodge", anio:2015, precio:45000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/5/50/Bullhorn_Prancer_2015.png/revision/latest/scale-to-width-down/180?cb=20221231074716", gama:"regular", tipo:"Sedan", top:133, acc:"6.02", combustible:"Gasoline"},
+  {nombre:"Bullhorn Prancer", marca:"Dodge", anio:1969, precio:65000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/5/59/Bullhorn_Prancer_1969.png/revision/latest/scale-to-width-down/180?cb=20241109161437", gama:"classic", tipo:"Coupe", top:112, acc:"5.04", combustible:"Gasoline"},
+  {nombre:"Bullhorn Determinator", marca:"Dodge", anio:2008, precio:54000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/b/ba/Bullhorn_Determinator_2008.png/revision/latest/scale-to-width-down/180?cb=20221231073109", gama:"regular", tipo:"Coupe", top:125, acc:"5.42", combustible:"Gasoline"},
+  {nombre:"Chevlon Camion", marca:"Chevrolet", anio:2021, precio:75000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/4/44/Chevlon_Camion_2021.png/revision/latest/scale-to-width-down/180?cb=20221231100945", gama:"regular", tipo:"SUV", top:128, acc:"5.82", combustible:"Gasoline"},
+  {nombre:"Falcon Stallion 350", marca:"Ford", anio:1969, precio:28000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/8/85/Falcon_Stallion_350_1969.png/revision/latest/scale-to-width-down/180?cb=20250106182947", gama:"classic", tipo:"Coupe", top:114, acc:"4.90", combustible:"Gasoline"},
+
+  {nombre:"Falcon eStallion", marca:"Ford", anio:2024, precio:57000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/e/e2/Falcon_eStallion_2024.png/revision/latest/scale-to-width-down/180?cb=20240429113243", gama:"electric", tipo:"SUV", top:124, acc:"3.83", combustible:"Electric"},
+  {nombre:"Chevlon Amigo Sport", marca:"Chevrolet", anio:2016, precio:44000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/f0/Chevlon_Amigo_Sport_2016.png/revision/latest/scale-to-width-down/180?cb=20221231080908", gama:"regular", tipo:"Coupe", top:129, acc:"6.06", combustible:"Gasoline"},
+  {nombre:"Chevlon Amigo LZR", marca:"Chevrolet", anio:2011, precio:50000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/f4/Chevlon_Amigo_LZR_2011_main.png/revision/latest/scale-to-width-down/180?cb=20240719183806", gama:"regular", tipo:"Coupe", top:133, acc:"4.51", combustible:"Gasoline"},
+  {nombre:"Chevlon Platoro", marca:"Chevrolet", anio:2019, precio:43000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/1/11/Chevlon_Platoro_2019.png/revision/latest/scale-to-width-down/180?cb=20221231222445", gama:"regular", tipo:"Truck", top:131, acc:"7.43", combustible:"Gasoline"},
+  {nombre:"Vellfire Prairie", marca:"Toyota", anio:2022, precio:32000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/4/4c/Vellfire_Prairie_2022.png/revision/latest/scale-to-width-down/180?cb=20240429160334", gama:"regular", tipo:"Truck", top:131, acc:"7.51", combustible:"Gasoline"},
+
+  {nombre:"Falcon Rampage Bigfoot 2-Door", marca:"Ford", anio:2021, precio:27000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/0/0b/Falcon_Rampage_Bigfoot_2-Door_2021.png/revision/latest/scale-to-width-down/180?cb=20241110131635", gama:"regular", tipo:"SUV", top:99, acc:"5.39", combustible:"Gasoline"},
+  {nombre:"Averon Anodic", marca:"Audi", anio:2024, precio:50000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/9/9d/Averon_Anodic_2024.png/revision/latest/scale-to-width-down/180?cb=20240502120510", gama:"electric", tipo:"SUV", top:119, acc:"5.75", combustible:"Electric"},
+  {nombre:"Bullhorn Pueblo", marca:"Dodge", anio:2018, precio:48000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/b/be/Bullhorn_Pueblo_2018.png/revision/latest/scale-to-width-down/180?cb=20221231080419", gama:"regular", tipo:"SUV", top:125, acc:"5.62", combustible:"Gasoline"},
+  {nombre:"Overland Apache SFP", marca:"Jeep", anio:2020, precio:53000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/f8/Overland_Apache_SFP_2020.png/revision/latest/scale-to-width-down/180?cb=20240502155145", gama:"regular", tipo:"SUV", top:147, acc:"4.67", combustible:"Gasoline"},
+
+  {nombre:"Chevlon Corbeta X08", marca:"Chevrolet", anio:2014, precio:85000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/f8/Chevlon_Corbeta_X08_2014.png/revision/latest/scale-to-width-down/180?cb=20250714085432", gama:"prestige", tipo:"Coupe", top:153, acc:"4.56", combustible:"Gasoline"},
+  {nombre:"Bullhorn Determinator SFP Fury", marca:"Dodge", anio:2022, precio:61000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/1/1b/Bullhorn_Determinator_SFP_Fury_2022.png/revision/latest/scale-to-width-down/180?cb=20221231073814", gama:"regular", tipo:"Coupe", top:162, acc:"4.54", combustible:"Gasoline"},
+  {nombre:"Bullhorn Prancer Widebody", marca:"Dodge", anio:2020, precio:51000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/c/cb/Bullhorn_Prancer_Widebody_2020.png/revision/latest/scale-to-width-down/180?cb=20221231075923", gama:"regular", tipo:"Sedan", top:136, acc:"5.12", combustible:"Gasoline"},
+
+  {nombre:"Leland Vault", marca:"Cadillac", anio:2020, precio:53000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/f2/Leland_Vault_2020.png/revision/latest/scale-to-width-down/180?cb=20240502175043", gama:"prestige", tipo:"SUV", top:125, acc:"5.49", combustible:"Gasoline"},
+  {nombre:"Bullhorn Determinator SFP Blackjack Widebody", marca:"Dodge", anio:2022, precio:48500000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/f1/Bullhorn_Determinator_SFP_Blackjack_Widebody_2022.png/revision/latest/scale-to-width-down/180?cb=20240502185955", gama:"regular", tipo:"Coupe", top:162, acc:"4.19", combustible:"Gasoline"},
+  {nombre:"Falcon Rampage Beast", marca:"Ford", anio:2021, precio:43000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/0/0f/Falcon_Rampage_Beast_2021.png/revision/latest/scale-to-width-down/180?cb=20241110123541", gama:"regular", tipo:"SUV", top:99, acc:"5.85", combustible:"Gasoline"},
+  {nombre:"Averon S5", marca:"Audi", anio:2010, precio:30000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/0/08/Averon_S5_2010.png/revision/latest/scale-to-width-down/180?cb=20221231071425", gama:"prestige", tipo:"Coupe", top:117, acc:"4.86", combustible:"Gasoline"},
+
+  {nombre:"Falcon Stallion 350", marca:"Ford", anio:2015, precio:40000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/c/c1/Falcon_Stallion_350_2015.png/revision/latest/scale-to-width-down/180?cb=20240727203700", gama:"regular", tipo:"Coupe", top:125, acc:"4.81", combustible:"Gasoline"},
+  {nombre:"Ferdinand Jalapeno Turbo", marca:"Porsche", anio:2022, precio:65000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/e/ea/Ferdinand_Jalapeno_Turbo_2022.png/revision/latest/scale-to-width-down/180?cb=20230405030413", gama:"prestige", tipo:"SUV", top:155, acc:"5.16", combustible:"Gasoline"},
+  {nombre:"BKM Munich", marca:"BMW", anio:2020, precio:55000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/b/b2/BKM_Munich_2020.png/revision/latest/scale-to-width-down/180?cb=20221231072147", gama:"prestige", tipo:"SUV", top:125, acc:"5.42", combustible:"Gasoline"},
+  {nombre:"Terrain Traveller", marca:"Land Rover", anio:2022, precio:65000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/9/9b/Terrain_Traveller_2022.png/revision/latest/scale-to-width-down/180?cb=20240503230325", gama:"prestige", tipo:"SUV", top:129, acc:"5.42", combustible:"Gasoline"},
+
+  {nombre:"Stuttgart Vierturig", marca:"Mercedes-Benz", anio:2021, precio:70000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/f/ff/Stuttgart_Vierturig_2021.png/revision/latest/scale-to-width-down/180?cb=20240217212304", gama:"prestige", tipo:"Sedan", top:129, acc:"5.29", combustible:"Gasoline"},
+  {nombre:"BKM Risen Roadster", marca:"BMW", anio:2020, precio:88000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/e/e7/BKM_Risen_Roadster_2020.png/revision/latest/scale-to-width-down/180?cb=20240504143918", gama:"electric", tipo:"Coupe", top:146, acc:"3.93", combustible:"Electric"},
+  {nombre:"Averon RS3", marca:"Audi", anio:2020, precio:48000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/7/73/Averon_RS3_2020.png/revision/latest/scale-to-width-down/180?cb=20221231070706", gama:"prestige", tipo:"Sedan", top:120, acc:"5.12", combustible:"Gasoline"},
+  {nombre:"Celestial Truckatron", marca:"Tesla", anio:2024, precio:78000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/1/17/Celestial_Truckatron_2024.png/revision/latest/scale-to-width-down/180?cb=20240504221109", gama:"electric", tipo:"Truck", top:122, acc:"3.66", combustible:"Electric"},
+
+  {nombre:"Averon Q8", marca:"Audi", anio:2022, precio:52000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/c/cd/Averon_Q8_2022.png/revision/latest/scale-to-width-down/180?cb=20221231065501", gama:"prestige", tipo:"SUV", top:125, acc:"5.41", combustible:"Gasoline"},
+  {nombre:"Navara Horizon", marca:"Nissan", anio:2013, precio:68000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/7/79/Navara_Horizon_2013.png/revision/latest/scale-to-width-down/180?cb=20240504223936", gama:"regular", tipo:"Coupe", top:157, acc:"3.86", combustible:"Gasoline"},
+  {nombre:"Vellfire Pioneer", marca:"Toyota", anio:2019, precio:67000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/7/7f/Vellfire_Pioneer_2019.png/revision/latest/scale-to-width-down/180?cb=20240218124142", gama:"regular", tipo:"Coupe", top:128, acc:"5.95", combustible:"Gasoline"},
+  {nombre:"Stuttgart Landschaft", marca:"Mercedes-Benz", anio:2022, precio:96000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/3/38/Stuttgart_Landschaft_2022.png/revision/latest/scale-to-width-down/180?cb=20240504182218", gama:"regular", tipo:"SUV", top:124, acc:"5.67", combustible:"Gasoline"},
+
+  {nombre:"Leland LTS5-V Blackwing", marca:"Cadillac", anio:2023, precio:52000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/9/97/Leland_LTS5-V_Blackwing_2023.png/revision/latest/scale-to-width-down/180?cb=20240504183033", gama:"prestige", tipo:"Sedan", top:122, acc:"4.75", combustible:"Gasoline"},
+  {nombre:"Chevlon Corbeta RZR", marca:"Chevrolet", anio:2014, precio:90000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/c/cb/Chevlon_Corbeta_TZ_2014.png/revision/latest/scale-to-width-down/180?cb=20250825152152", gama:"prestige", tipo:"Coupe", top:163, acc:"4.14", combustible:"Gasoline"},
+  {nombre:"Chevlon Corbeta 8", marca:"Chevrolet", anio:2023, precio:101000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/9/9f/Chevlon_Corbeta_8_2023.png/revision/latest/scale-to-width-down/180?cb=20221231112251", gama:"prestige", tipo:"Coupe", top:157, acc:"3.96", combustible:"Gasoline"},
+  {nombre:"Takeo Experience", marca:"Lexus", anio:2021, precio:157000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/5/54/Takeo_Experience_2021.png/revision/latest/scale-to-width-down/180?cb=20240428125427", gama:"prestige", tipo:"Coupe", top:140, acc:"3.27", combustible:"Gasoline"},
+
+  {nombre:"Falcon Heritage", marca:"Ford", anio:2021, precio:227000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/3/37/Screenshot_2025-08-03_080041.png/revision/latest/scale-to-width-down/181?cb=20250825162553", gama:"prestige", tipo:"Coupe", top:167, acc:"3.25", combustible:"Gasoline"},
+  {nombre:"Averon R8", marca:"Audi", anio:2017, precio:107000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/b/b5/Averon_R8_2017.png/revision/latest/scale-to-width-down/180?cb=20230521193930", gama:"prestige", tipo:"Coupe", top:146, acc:"4.97", combustible:"Gasoline"},
+  {nombre:"Surrey 650S", marca:"McLaren", anio:2016, precio:170000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/2/28/Surrey_650S_2016.png/revision/latest/scale-to-width-down/180?cb=20231209192150", gama:"prestige", tipo:"Coupe", top:150, acc:"3.74", combustible:"Gasoline"},
+  {nombre:"Strugatti Ettore", marca:"Bugatti", anio:2020, precio:300000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/8/82/Strugatti_Ettore_2020.png/revision/latest/scale-to-width-down/180?cb=20240504211100", gama:"prestige", tipo:"Coupe", top:170, acc:"3.88", combustible:"Gasoline"},
+  {nombre:"Kovac Heladera", marca:"Rimac", anio:2023, precio:330000000, img:"https://static.wikia.nocookie.net/emergency-response-liberty-county/images/9/9c/Kovac_Heladera_2023.jpeg/revision/latest/scale-to-width-down/180?cb=20250728042315", gama:"electric", tipo:"Coupe", top:180, acc:"2.71", combustible:"Electric"}
+];
+
+/* =========================
+   RENDER + FILTROS
+========================= */
+const carList = document.getElementById("carList");
+const countBadge = document.getElementById("countBadge");
+
+function formatCLP(n){
+  const val = Number(n) || 0;
+  return val === 0 ? "FREE" : "$" + val.toLocaleString("es-CL");
+}
+
+function renderCars(lista){
+  carList.innerHTML = "";
+  countBadge.textContent = lista.length + " vehículos";
+
+  lista.forEach(car=>{
+    const imgUrl = (car.img && String(car.img).trim()) ? car.img : DEFAULT_IMG;
+
+    carList.insertAdjacentHTML("beforeend", `
+      <div class="car data"
+           data-gama="${car.gama}"
+           data-precio="${Number(car.precio)||0}"
+           data-year="${car.anio}">
+        <img
+          src="${imgUrl}"
+          alt="${car.marca} ${car.nombre}"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          onerror="this.onerror=null;this.src='${DEFAULT_IMG}'"
+        >
+        <div class="car-info">
+          <span><strong>Marca:</strong> ${car.marca}</span>
+          <span><strong>Modelo:</strong> ${car.nombre}</span>
+          <span><strong>Año:</strong> ${car.anio}</span>
+          <span><strong>Tipo:</strong> ${car.tipo}</span>
+          <span><strong>Velocidad Máx:</strong> ${car.top} MPH</span>
+          <span><strong>0-60:</strong> ${car.acc} sec</span>
+          <span><strong>Combustible:</strong> ${car.combustible}</span>
+          <span><strong>Precio (CLP):</strong> ${formatCLP(car.precio)}</span>
+        </div>
+      </div>
+    `);
+  });
+}
+
+renderCars(carsData);
+
+const search = document.getElementById("searchInput");
+const gama = document.getElementById("gamaFilter");
+const minPrice = document.getElementById("minPrice");
+const maxPrice = document.getElementById("maxPrice");
+const year = document.getElementById("yearFilter");
+
+function filterCars(){
+  const s = search.value.toLowerCase().trim();
+  const g = gama.value;
+  const min = Number(minPrice.value);
+  const max = Number(maxPrice.value);
+  const y = year.value;
+
+  const filtrados = carsData.filter(c=>{
+    const text = (c.marca + " " + c.nombre).toLowerCase();
+    const precio = Number(c.precio) || 0;
+
+    if(s && !text.includes(s)) return false;
+    if(g && c.gama !== g) return false;
+    if(min && precio < min) return false;
+    if(max && precio > max) return false;
+    if(y && String(c.anio) !== String(y)) return false;
+    return true;
+  });
+
+  renderCars(filtrados);
+}
+
+[search,gama,minPrice,maxPrice,year].forEach(el=>{
+  el.addEventListener("input", filterCars);
+});
+</script>
+
+</body>
+</html>
