@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capital RP | Normativa Staff</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(270deg,#1337ac, #243469, #152147, #0d34c2bd);
+  background-size: 800% 800%;
+  animation: gradientMove 20s ease infinite;
+  color: #fff;
+  padding-top: 75px;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(15px);
+  z-index: 10;
+}
+
+.navbar img {
+  height: 45px;
+  opacity: 0.7;
+}
+
+/* CONTENEDOR */
+.contenedor {
+  width: 94%;
+  max-width: 900px;
+  margin: auto;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
+}
+
+h1 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.sub {
+  text-align:center;
+  font-size: 13px;
+  opacity: .8;
+  margin-bottom: 15px;
+}
+
+/* BUSCADOR */
+.search-box {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  font-size: 14px;
+}
+
+/* SECCIONES */
+.section { margin-bottom: 14px; }
+
+.section-title {
+  background: rgba(255,255,255,0.18);
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.section-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.section-content li {
+  background: rgba(255,255,255,0.1);
+  padding: 8px 12px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.highlight {
+  background: yellow;
+  color: black;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+/* BOTÓN */
+.volver {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 22px auto 0 auto;
+  padding: 16px;
+  text-align: center;
+  border-radius: 22px;
+  background: rgba(0,150,255,0.75);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 6px 40px rgba(0,150,255,0.55);
+  backdrop-filter: blur(15px);
+  transition: all 0.25s ease;
+}
+
+.volver:hover {
+  background: rgba(0,200,255,0.9);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 50px rgba(0,200,255,0.65);
+}
+
+/* RESPONSIVE */
+@media (min-width: 700px) {
+  h1 { font-size: 30px; }
+  .section-title { font-size: 18px; }
+  .section-content li { font-size: 15px; }
+}
+
+@media (min-width: 1000px) {
+  h1 { font-size: 34px; }
+  .section-title { font-size: 20px; }
+  .section-content li { font-size: 16px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <img src="logo capital rp.png" alt="Logo Capital RP">
+</div>
+
+<div class="contenedor">
+  <h1>🛡️ Normativa del Staff</h1>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍 Buscar norma...">
+  </div>
+
+  <!-- 1) PRINCIPIOS -->
+  <div class="section">
+    <div class="section-title">Principios y Conducta (1-10)</div>
+    <div class="section-content">
+      <ul>
+        <li>1. El staff debe ser ejemplo: respeto, calma y profesionalismo en todo momento.</li>
+        <li>2. Está prohibido responder a un ciudadano de forma soberbia, burlona o con intención de atacar.</li>
+        <li>3. El staff no debe “ganar discusiones”: debe resolver conflictos con imparcialidad.</li>
+        <li>4. No se permite abuso de poder ni usar el rango para intimidar.</li>
+        <li>5. Si estás molesto, te retiras 2 minutos y vuelves con calma (o deriva a otro staff).</li>
+        <li>6. Está prohibido filtrar asuntos internos del staff a ciudadanos (tickets, reportes o chats internos).</li>
+        <li>7. No se permite favoritismo: amigos, aliados o donadores se tratan igual que todos.</li>
+        <li>8. Prohibido provocar, responder con sarcasmo o “picar” a usuarios.</li>
+        <li>9. Las decisiones se fundamentan con reglas, no con opiniones personales.</li>
+        <li>10. Si no sabes algo, lo dices: “Lo reviso y te confirmo” (sin inventar).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2) TICKETS -->
+  <div class="section">
+    <div class="section-title">Tickets y Atención (11-20)</div>
+    <div class="section-content">
+      <ul>
+        <li>11. Un staff no puede meterse en un ticket que ya está atendiendo otro staff (el que habló primero), salvo que te lo pida o sea urgente.</li>
+        <li>12. Si necesitas intervenir, debes avisar en el ticket o por canal interno: “¿Te apoyo?”</li>
+        <li>13. No cierres un ticket si el ciudadano aún está respondiendo o la situación no quedó clara.</li>
+        <li>14. Tickets = lenguaje formal y claro. Evitar , insultos o términos humillantes.</li>
+        <li>15. No se sanciona por enojo: primero se explica, luego se aplica norma si corresponde.</li>
+        <li>16. Todo ticket debe terminar con: resolución + motivo + norma aplicada (si hubo sanción).</li>
+        <li>17. Si hay acusaciones serias, pide evidencia (clips, capturas) antes de decidir.</li>
+        <li>18. Si el caso es complejo, deriva a un superior en vez de improvisar.</li>
+        <li>19. Está prohibido “amenazar” con sanciones para forzar una respuesta (“si no respondes te baneo”).</li>
+        <li>20. Prohibido discutir sanciones en público; se atiende por ticket y con respeto.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3) SANCIONES Y PRUEBAS -->
+  <div class="section">
+    <div class="section-title">Sanciones, Evidencia y Transparencia (21-30)</div>
+    <div class="section-content">
+      <ul>
+        <li>21. Cada sanción debe tener motivo claro y norma asociada (no “porque sí”).</li>
+        <li>22. Antes de sancionar, verifica usuario correcto y revisa el contexto completo.</li>
+        <li>23. Prohibido inventar evidencia o exagerar razones para sancionar.</li>
+        <li>24. Si te equivocas en una sanción, se corrige y se informa con humildad.</li>
+        <li>25. No se sanciona por “antipatía” o porque “cae mal”.</li>
+        <li>26. No se aplica doble sanción por el mismo hecho (salvo reincidencia clara).</li>
+        <li>27. Todas las sanciones relevantes deben quedar registradas (log/canal de reportes).</li>
+        <li>28. No se borran mensajes/evidencia para “cubrir” errores del staff.</li>
+        <li>29. Si existe conflicto de interés (amigo/enemigo), debes derivar el caso.</li>
+        <li>30. Si un superior da una instrucción, se cumple y si no estás de acuerdo, se conversa en privado.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4) LIBERTY COUNTY / ROBLOX -->
+  <div class="section">
+    <div class="section-title">Moderación en Liberty County (31-40)</div>
+    <div class="section-content">
+      <ul>
+        <li>31. Los moderadores no pueden sancionar ni usar comandos en Liberty County si no están moderando activamente.</li>
+        <li>32. Moderar = estar disponible, atento al chat, reportes y comportamiento general.</li>
+        <li>33. Prohibido usar comandos para beneficio personal (dinero, teleport, ventajas, venganzas).</li>
+        <li>34. No se sanciona sin revisar evidencia o situación directa (si no viste, pide pruebas).</li>
+        <li>35. Si la situación escala, se solicita apoyo a un staff superior.</li>
+        <li>36. Prohibido “roleplayear” con comandos de moderación o amenazar dentro del juego.</li>
+        <li>37. Un staff no debe discutir con jugadores en el servidor de juego; se deriva a ticket si es necesario.</li>
+        <li>38. No se interrumpe el rol sin motivo: solo cuando hay incumplimiento real o riesgo.</li>
+        <li>39. Los castigos dentro del juego deben ser proporcionales y explicados al usuario.</li>
+        <li>40. Evadir responsabilidad (“no fui yo”) con logs en contra implica sanción interna.</li>
+        <li>41. Está estrictamente prohibido moderar y rolear al mismo tiempo. Si un staff está moderando, debe salir completamente de su rol hasta finalizar la intervención.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5) ACTIVIDAD, IMAGEN Y SEGURIDAD -->
+  <div class="section">
+    <div class="section-title">Actividad, Imagen y Seguridad Interna (41-50)</div>
+    <div class="section-content">
+      <ul>
+        <li>42. Mantén buena ortografía y claridad: el staff representa al servidor.</li>
+        <li>43. Prohibido compartir permisos, cuentas o accesos de staff con terceros.</li>
+        <li>44. No se aceptan “bromas” con baneos, kicks o sanciones.</li>
+        <li>45. Si no puedes cumplir actividad, avisa con tiempo al superior.</li>
+        <li>46. Prohibido usar información interna para humillar o exponer usuarios.</li>
+        <li>47. Los reportes internos se hacen con respeto, sin funas ni ataques personales.</li>
+        <li>48. Si hay conflicto entre staff, se resuelve por canales internos, no frente a ciudadanos.</li>
+        <li>49. Prohibido modificar roles/permisos sin autorización del rango correspondiente.</li>
+        <li>50. El uso de bots/herramientas del servidor debe seguir protocolos (no pruebas al azar en canales públicos).</li>
+        <li>51. Cualquier conducta que dañe la imagen del servidor puede ser sancionada aunque no esté escrita.</li>
+      </ul>
+    </div>
+  </div>
+
+  <a href="pagina.html" class="volver">⬅ Salir al Inicio</a>
+</div>
+
+<script>
+document.querySelectorAll('.section-title').forEach(title => {
+  title.addEventListener('click', () => {
+    const content = title.nextElementSibling;
+    content.style.maxHeight
+      ? content.style.maxHeight = null
+      : content.style.maxHeight = content.scrollHeight + "px";
+  });
+});
+
+const search = document.getElementById('searchInput');
+const items = document.querySelectorAll('.section-content li');
+
+search.addEventListener('keyup', () => {
+  const value = search.value.toLowerCase().trim();
+
+  items.forEach(li => {
+    const original = li.getAttribute("data-original") || li.textContent;
+    if(!li.getAttribute("data-original")) li.setAttribute("data-original", original);
+
+    const text = original.toLowerCase();
+    if (!value || text.includes(value)) {
+      li.style.display = '';
+      if (value) {
+        li.innerHTML = original.replace(
+          new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'gi'),
+          m => `<span class="highlight">${m}</span>`
+        );
+        const sc = li.closest('.section-content');
+        sc.style.maxHeight = sc.scrollHeight + "px";
+      } else {
+        li.textContent = original;
+      }
+    } else {
+      li.style.display = 'none';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
