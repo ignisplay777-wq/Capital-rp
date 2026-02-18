@@ -1,164 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Capital RP | Inicio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capital RP | Inicio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:'Poppins',sans-serif;
-}
+  <style>
+    :root{
+      --bg1:#050b1e;
+      --bg2:#081a2a;
+      --card: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.10);
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.7);
+      --cyan:#00d4ff;
+      --blue:#1b6bff;
+      --discord:#7289da;
+      --radius:26px;
+    }
 
-body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at top,#00d4ff33,transparent 40%),
-    linear-gradient(270deg,#050b1e,#0a1a3a,#081a2a,#050b1e);
-  background-size:800% 800%;
-  animation:bgMove 22s ease infinite;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-}
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(0,212,255,.25), transparent 55%),
+        radial-gradient(700px 420px at 85% 20%, rgba(27,107,255,.18), transparent 55%),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:var(--text);
+    }
 
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+    .container{
+      width:min(1100px,92vw);
+      margin:auto;
+    }
 
-/* CONTENEDOR PRINCIPAL */
-.card{
-  width:92%;
-  max-width:520px;
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(18px);
-  border-radius:26px;
-  padding:34px 26px;
-  text-align:center;
-  box-shadow:
-    0 0 40px rgba(0,0,0,.6),
-    inset 0 0 0 1px rgba(255,255,255,.08);
-  animation:fadeUp .8s ease;
-}
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      padding:30px;
+      backdrop-filter:blur(18px);
+      box-shadow:0 20px 60px rgba(0,0,0,.6);
+      animation:fadeUp .7s ease;
+    }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(25px)}
-  to{opacity:1;transform:translateY(0)}
-}
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
 
-/* LOGO */
-.logo{
-  width:260px;
-  max-width:80%;
-  margin-bottom:24px;
-  filter:drop-shadow(0 0 25px rgba(0,200,255,.5));
-}
+    .top{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-bottom:20px;
+    }
 
-/* TEXTO */
-.title{
-  font-size:26px;
-  font-weight:700;
-  margin-bottom:6px;
-}
+    .logo{
+      width:60px;
+      height:60px;
+      object-fit:contain;
+      padding:10px;
+      border-radius:18px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.1);
+    }
 
-.subtitle{
-  font-size:14px;
-  opacity:.75;
-  margin-bottom:28px;
-}
+    .brand{
+      display:flex;
+      flex-direction:column;
+    }
 
-/* BOTONES */
-.buttons{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
+    .brand h1{
+      font-size:22px;
+      font-weight:700;
+    }
 
-/* BOTÓN ACCEDER */
-.btn-enter{
-  padding:16px;
-  border-radius:18px;
-  background:linear-gradient(45deg,#00c6ff,#0072ff);
-  color:#fff;
-  text-decoration:none;
-  font-weight:600;
-  font-size:17px;
-  box-shadow:0 0 25px rgba(0,123,255,.55);
-  transition:.25s ease;
-}
+    .brand span{
+      font-size:13px;
+      color:var(--muted);
+    }
 
-.btn-enter:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 40px rgba(0,198,255,.9);
-}
+    .hero{
+      margin-top:10px;
+    }
 
-/* BOTÓN DISCORD */
-.btn-discord{
-  padding:15px;
-  border-radius:18px;
-  background:rgba(114,137,218,.18);
-  color:#fff;
-  text-decoration:none;
-  font-weight:600;
-  font-size:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  border:1px solid rgba(114,137,218,.35);
-  transition:.25s ease;
-}
+    .hero h2{
+      font-size:34px;
+      font-weight:700;
+      margin-bottom:10px;
+    }
 
-.btn-discord img{
-  width:26px;
-  height:26px;
-}
+    .hero h2 span{
+      background:linear-gradient(90deg,var(--cyan),#a5f3fc,var(--blue));
+      -webkit-background-clip:text;
+      color:transparent;
+    }
 
-.btn-discord:hover{
-  background:rgba(114,137,218,.28);
-  transform:scale(1.04);
-  box-shadow:0 0 35px rgba(114,137,218,.75);
-}
+    .hero p{
+      color:var(--muted);
+      font-size:15px;
+      margin-bottom:25px;
+      max-width:600px;
+    }
 
-/* RESPONSIVE */
-@media(min-width:700px){
-  .title{font-size:30px}
-  .subtitle{font-size:15px}
-}
-</style>
+    .buttons{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .btn{
+      padding:16px;
+      border-radius:18px;
+      text-decoration:none;
+      font-weight:600;
+      text-align:center;
+      transition:.2s ease;
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .btn-primary{
+      background:linear-gradient(45deg,var(--cyan),var(--blue));
+      box-shadow:0 0 30px rgba(0,212,255,.35);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 0 45px rgba(0,212,255,.55);
+    }
+
+    .btn-discord{
+      background:rgba(114,137,218,.15);
+      border:1px solid rgba(114,137,218,.4);
+      color:#fff;
+    }
+
+    .btn-discord:hover{
+      background:rgba(114,137,218,.25);
+      box-shadow:0 0 35px rgba(114,137,218,.4);
+      transform:translateY(-2px);
+    }
+
+    @media(min-width:768px){
+      .hero h2{font-size:42px}
+      .buttons{flex-direction:row}
+      .btn{flex:1}
+    }
+
+  </style>
 </head>
 
 <body>
 
-<div class="card">
+  <div class="container">
+    <div class="card">
 
-  <img src="logo capital rp.png" alt="Capital RP" class="logo">
+      <div class="top">
+        <img src="logo capital rp.png" alt="Capital RP" class="logo">
+        <div class="brand">
+          <h1>Capital RP</h1>
+          <span>Sistema Oficial • Comunidad Chilena</span>
+        </div>
+      </div>
 
-  <div class="title">Capital RP</div>
-  <div class="subtitle">Sistema oficial.</div>
+      <div class="hero">
+        <h2>Bienvenido a <span>Capital RP</span></h2>
+        <p>
+          Plataforma oficial del servidor. Accede al sistema de registros,
+          normativa y base de datos del roleplay.
+        </p>
 
-  <div class="buttons">
-    <a href="pagina.html" class="btn-enter">
-      Acceder al Sistema
-    </a>
+        <div class="buttons">
+          <a href="pagina.html" class="btn btn-primary">
+            Acceder al Sistema
+          </a>
 
-    <a href="https://discord.gg/yfQRnM9m2s"
-       target="_blank"
-       class="btn-discord">
-      <img src="logo-discord.png" alt="Discord">
-      Unirse al Discord
-    </a>
+          <a href="https://discord.gg/yfQRnM9m2s" target="_blank" class="btn btn-discord">
+            Unirse al Discord
+          </a>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-</div>
 
 </body>
 </html>
