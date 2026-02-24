@@ -5,16 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Capital RP | Base de Datos Oficial</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
 
+:root{
+  --bg1:#0f172a;
+  --bg2:#020617;
+  --text:#e5e7eb;
+  --muted:rgba(229,231,235,.78);
+  --line:rgba(255,255,255,.10);
+  --card:rgba(255,255,255,.05);
+  --chip:rgba(2,6,23,.55);
+  --blue:#3b82f6;
+  --blue2:#93c5fd;
+}
+
 body{
   margin:0;
   font-family:'Inter',Arial,sans-serif;
-  background:#0f172a;
-  color:#e5e7eb;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  color:var(--text);
 }
 
 /* ===== SIDEBAR ===== */
@@ -36,17 +48,18 @@ body{
   font-size:18px;
   text-align:center;
   margin-bottom:28px;
-  font-weight:700;
+  font-weight:800;
+  letter-spacing:.2px;
 }
 
 .sidebar a{
   display:block;
   padding:12px 16px;
   margin-bottom:12px;
-  border-radius:10px;
+  border-radius:12px;
   text-decoration:none;
-  color:#e5e7eb;
-  font-weight:500;
+  color:var(--text);
+  font-weight:600;
   background:rgba(255,255,255,.06);
   transition:.2s ease;
 }
@@ -86,56 +99,178 @@ h1{
   text-align:center;
   font-size:26px;
   margin-bottom:22px;
-  font-weight:700;
+  font-weight:900;
+  background:linear-gradient(90deg,#60a5fa,#93c5fd);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 /* BUSCADOR */
 .search{
   margin-bottom:30px;
 }
-
 .search input{
   width:100%;
   padding:14px 16px;
-  border-radius:10px;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,.15);
   background:#020617;
-  color:#e5e7eb;
+  color:var(--text);
   font-size:14px;
+  transition:.25s;
+}
+.search input:focus{
+  outline:none;
+  border-color:rgba(59,130,246,.7);
+  box-shadow:0 0 0 3px rgba(59,130,246,.18);
 }
 
 /* SECCIONES */
 .section{
   margin-bottom:46px;
 }
-
 .section-title{
   font-size:20px;
-  font-weight:700;
+  font-weight:800;
   margin-bottom:16px;
-  border-left:4px solid #3b82f6;
+  border-left:4px solid var(--blue);
   padding-left:12px;
 }
 
-/* REGISTROS */
+/* ===== REGISTROS genéricos (vehículos) ===== */
 .record{
-  background:rgba(255,255,255,.05);
+  background:var(--card);
   border:1px solid rgba(255,255,255,.08);
   border-radius:12px;
   padding:16px;
   margin-bottom:14px;
 }
-
 .record span{
   display:block;
   font-size:14px;
   margin-bottom:6px;
 }
-
 .record strong{
-  color:#93c5fd;
-  font-weight:600;
+  color:var(--blue2);
+  font-weight:700;
 }
+
+/* =========================
+   DNI REAL (Registro Civil)
+   ========================= */
+.dni{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(900px 220px at 12% 0%, rgba(59,130,246,.25), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 14px 36px rgba(0,0,0,.28);
+  transition:.22s ease;
+}
+.dni:hover{
+  transform:translateY(-3px);
+  border-color:rgba(147,197,253,.25);
+  box-shadow:0 18px 44px rgba(59,130,246,.18);
+}
+.dni::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(147,197,253,.12) 35%, transparent 70%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 6px, transparent 6px 14px);
+  opacity:.35;
+  pointer-events:none;
+}
+
+.dni-head{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  margin-bottom:12px;
+}
+.dni-brand{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.dni-country{
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:.9;
+}
+.dni-title{
+  font-size:15px;
+  font-weight:900;
+  color:#eef6ff;
+}
+.dni-sub{
+  font-size:12px;
+  color:rgba(229,231,235,.8);
+}
+
+.dni-meta{
+  text-align:right;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:240px;
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid rgba(147,197,253,.22);
+  background:rgba(2,6,23,.55);
+  color:#dbeafe;
+  font-weight:900;
+  font-size:12px;
+  letter-spacing:.04em;
+}
+.meta-line{
+  font-size:12px;
+  opacity:.85;
+}
+
+.dni-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap:10px 14px;
+}
+.dni-field{
+  background:rgba(2,6,23,.40);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  padding:10px 12px;
+}
+.dni-label{
+  font-size:11px;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  opacity:.75;
+  margin-bottom:6px;
+}
+.dni-value{
+  font-size:14px;
+  font-weight:900;
+  color:var(--text);
+  word-break:break-word;
+}
+.dni-wide{ grid-column:1 / -1; }
 
 /* RESPONSIVE */
 @media(max-width:900px){
@@ -143,6 +278,10 @@ h1{
   .sidebar.active{left:0}
   .menu-btn{display:block}
   .main{margin-left:0;padding-top:110px}
+}
+@media (max-width:650px){
+  .dni-meta{ min-width:unset; }
+  .dni-grid{ grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -169,548 +308,819 @@ h1{
 
 <!-- REGISTRO CIVIL -->
 <div class="section" id="civil">
-<div class="section-title">Registro Civil</div>
+  <div class="section-title">Registro Civil</div>
 
-<!-- PLANTILLA DNI -->
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Vicente Andrés</span>
-  <span><strong>Apellidos IC:</strong> Quiroz Fischer</span>
-  <span><strong>RUT:</strong> 12.345.678-5</span>
-  <span><strong>Edad:</strong> 41</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> vicee166fnsnt_30317</span>
+  <!-- 000001 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000001</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Vicente Andrés Quiroz Fischer</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">12.345.678-5</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">41</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">vicee166fnsnt_30317</div></div>
+    </div>
+  </div>
+
+  <!-- 000002 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000002</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Augusto Nikolai Schneider Pinochet</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">12.984.317-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">47</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Upliftspicefan3000</div></div>
+    </div>
+  </div>
+
+  <!-- 000003 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000003</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Ignacio Antonio Martinez Garcia</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">20.482.913-2</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Jotakorx</div></div>
+    </div>
+  </div>
+
+  <!-- 000004 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000004</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Lucas Michelle Vidal Leiton</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">25.184.967-0</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">25</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">EE.UU</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Nacho_trobex</div></div>
+    </div>
+  </div>
+
+  <!-- 000005 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000005</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Ignacio Mauricio Caballeria Araya</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.345.672-k</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chile</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">nachocaba204</div></div>
+    </div>
+  </div>
+
+  <!-- 000006 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000006</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Cristobal Andres Soto Rojas</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.642.342</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chile</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">shadow_cris_1</div></div>
+    </div>
+  </div>
+
+  <!-- 000007 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000007</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Geronimo colon benavides rojas</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.213.412-k</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chile</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">cristouballlll</div></div>
+    </div>
+  </div>
+
+  <!-- 000008 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000008</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Vicente Hernandez Vicente Hernandez</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">17.424.315-2</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chile</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">vicente131</div></div>
+    </div>
+  </div>
+
+  <!-- 000009 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000009</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Bastian Emanuel Leiva Corvin</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">16.982.457-3</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">25</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chile</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Nevanjkk</div></div>
+    </div>
+  </div>
+
+  <!-- 000010 -->
+  <div class="dni data">
+    <div class="dni-head">
+      <div class="dni-brand">
+        <div class="dni-country">República de Chile</div>
+        <div class="dni-title">Cédula de Identidad (RP)</div>
+        <div class="dni-sub">Capital RP — Registro Civil</div>
+      </div>
+      <div class="dni-meta">
+        <div class="chip">N° Documento: CRP-000010</div>
+        <div class="meta-line">Tipo: Nacional</div>
+      </div>
+    </div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Agustin Alonso Aguirre Espejo</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.734.691-8</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">22</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chile</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Agus_11v</div></div>
+    </div>
+  </div>
+
+  <!-- 000011 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000011</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Daniel Alejandro Diaz Mansilla</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">12.847.593-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">40</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chile</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">ni.clx</div></div>
+    </div>
+  </div>
+
+  <!-- 000012 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000012</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Joaquín Elías Fierro Lizama</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">21.684.739-4</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Pato_30hx62115</div></div>
+    </div>
+  </div>
+
+  <!-- 000013 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000013</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Dylans Valentino Muñoz Rivas</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">22.941.683-7</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">18</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">dil_gling</div></div>
+    </div>
+  </div>
+
+  <!-- 000014 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000014</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Nicolás Ignacio Santos Shcneider</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">21.372.954-1</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">_blox_1</div></div>
+    </div>
+  </div>
+
+  <!-- 000015 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000015</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Nicolás Antonio Martinez Morales</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">15.684.297-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">34</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">rusioman1</div></div>
+    </div>
+  </div>
+
+  <!-- 000016 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000016</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Habibi Sekateck Tekas Turajack</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.932.471-9</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">26</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">habibi_arb</div></div>
+    </div>
+  </div>
+
+  <!-- 000017 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000017</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Nicolás Renato Maldonado González</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">21.458.936-8</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">El_candy8394</div></div>
+    </div>
+  </div>
+
+  <!-- 000018 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000018</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Antonio Esay Luna Caro</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">26.937.184-3</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">13</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Gojo satoru</div></div>
+    </div>
+  </div>
+
+  <!-- 000019 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000019</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Agusto Pinochet Gonzalez Diaz</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">19.864.572-1</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">23</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">169th_pollo</div></div>
+    </div>
+  </div>
+
+  <!-- 000020 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000020</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Francisco Esteban Morales Valdés</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">26.184.739-5</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">13</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">brandonnnnn1947918e639</div></div>
+    </div>
+  </div>
+
+  <!-- 000021 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000021</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Benjamin Andres Tapia Godoy</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">16.742.593-4</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">30</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">benja38545549454v</div></div>
+    </div>
+  </div>
+
+  <!-- 000022 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000022</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Piero Alejandro González Martínez</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">26.538.194-7</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">13</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">España</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Elabran</div></div>
+    </div>
+  </div>
+
+  <!-- 000023 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000023</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Benjamin Alejandro Coppola Fernández</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">25.917.638-2</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">13</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Benjacoppola</div></div>
+    </div>
+  </div>
+
+  <!-- 000024 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000024</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Felipe Andrés Aguilar Muñoz</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">21.693.847-5</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">felipemarite</div></div>
+    </div>
+  </div>
+
+  <!-- 000025 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000025</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Ezequiel Rodrigo Fernández Rey</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.742.593-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">25</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Uruguay</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">proyectohuracanbuceo</div></div>
+    </div>
+  </div>
+
+  <!-- 000026 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000026</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Martino Antonio Gaete Bucarey</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">19.638.472-4</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">23</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">shisui1.7</div></div>
+    </div>
+  </div>
+
+  <!-- 000027 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000027</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Diego Andres Martinez Perez</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.954.371-8</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">24</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Diegogo_vc</div></div>
+    </div>
+  </div>
+
+  <!-- 000028 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000028</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Juan Alberto Rojo Parado</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">20.483.719-2</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">21</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">lokotron_47</div></div>
+    </div>
+  </div>
+
+  <!-- 000029 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000029</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Bastian Ignacio Mata Paco</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.593.742-9</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">24</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Bastian120</div></div>
+    </div>
+  </div>
+
+  <!-- 000030 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000030</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Brayan Andres Sepulveda Yañes</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">25.874.631-3</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">15</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Brayan07779</div></div>
+    </div>
+  </div>
+
+  <!-- 000031 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000031</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Benjamin Ignacio Contreras Ramírez</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">21.483.792-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">18</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Isaac6.5</div></div>
+    </div>
+  </div>
+
+  <!-- 000032 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000032</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Fabiano Andrés Contreraz Rramirez</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.974.631-2</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">25</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">seisincoooo.65</div></div>
+    </div>
+  </div>
+
+  <!-- 000033 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000033</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Jeremias Kevin Contreras Ramires</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">24.637.918-4</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">17</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">dilanfortyseveng_12560</div></div>
+    </div>
+  </div>
+
+  <!-- 000034 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000034</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Jorge Curioso Mono Mono</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">25.918.473-7</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">14</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">_.10julieta10._</div></div>
+    </div>
+  </div>
+
+  <!-- 000035 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000035</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Cristóbal Javier Díaz Flores</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">20.736.485-9</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">21</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">mtmlider0548</div></div>
+    </div>
+  </div>
+
+  <!-- 000036 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000036</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Chikito Lolito Elmas Guapo</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">21.954.738-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Elpapitolindo</div></div>
+    </div>
+  </div>
+
+  <!-- 000037 (repetido) -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000037</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Cristóbal Javier Díaz Flores</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">20.736.485-9</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">21</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">mtmlider0548</div></div>
+    </div>
+  </div>
+
+  <!-- 000038 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000038</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Agustin Gabo Martinez Bulla Martinez Bulla</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.847.392-5</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">24</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">.martinezz.</div></div>
+    </div>
+  </div>
+
+  <!-- 000039 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000039</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Tomillo Diego Flores Hernandez</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">25.638.194-8</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">14</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">tomillo_fdez11</div></div>
+    </div>
+  </div>
+
+  <!-- 000040 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000040</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Juan Miguel Yamil Diaz</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">22.684.931-7</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">19</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">moises099082</div></div>
+    </div>
+  </div>
+
+  <!-- 000041 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000041</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Adam Lesty Luster Georgia</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">18.593.741-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">24</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Eljajasxd_56_91918</div></div>
+    </div>
+  </div>
+
+  <!-- 000042 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000042</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Miguel Juan Sebastian Piñera Reyes</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">12.847.639-2</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">45</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Alonso</div></div>
+    </div>
+  </div>
+
+  <!-- 000043 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000043</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Ryan Adam Sheppard West</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">22.948.371-5</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">18</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">agus_133cdc</div></div>
+    </div>
+  </div>
+
+  <!-- 000044 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000044</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Thomas Alejandro Sheppard West</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">22.731.694-8</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">18</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">reno_hot</div></div>
+    </div>
+  </div>
+
+  <!-- 000045 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000045</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Ignacio Juan Urizar Marambio</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">24.863.195-2</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">17</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">bjrn5591</div></div>
+    </div>
+  </div>
+
+  <!-- 000046 -->
+  <div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000046</div><div class="meta-line">Tipo: Nacional</div></div></div>
+    <div class="dni-grid">
+      <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Lucky Luciano Alcapony Donais</div></div>
+      <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">23.574.918-6</div></div>
+      <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">19</div></div>
+      <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+      <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+      <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">CIV ¦ lucrak9777</div></div>
+    </div>
+  </div>
+
+  <!-- 000047 -->
+<div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000047</div><div class="meta-line">Tipo: Nacional</div></div></div>
+  <div class="dni-grid">
+    <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Gabriel Valdez Paredes Guzman</div></div>
+    <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">23.864.719-5</div></div>
+    <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">19</div></div>
+    <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+    <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+    <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Berxs</div></div>
+  </div>
 </div>
 
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Augusto Nikolai</span>
-  <span><strong>Apellidos IC:</strong> Schneider Pinochet</span>
-  <span><strong>RUT:</strong> 12.984.317-6</span>
-  <span><strong>Edad:</strong> 47</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> Upliftspicefan3000</span>
+<!-- 000048 -->
+<div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000048</div><div class="meta-line">Tipo: Nacional</div></div></div>
+  <div class="dni-grid">
+    <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Tony Alonso Montana Gonzales</div></div>
+    <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">24.173.682-4</div></div>
+    <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">19</div></div>
+    <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+    <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+    <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">tzd9jy28wrn04742</div></div>
+  </div>
 </div>
 
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Ignacio Antonio</span>
-  <span><strong>Apellidos IC:</strong> Martinez Garcia</span>
-  <span><strong>RUT:</strong> 20.482.913-2</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Jotakorx</span>
+<!-- 000049 -->
+<div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000049</div><div class="meta-line">Tipo: Nacional</div></div></div>
+  <div class="dni-grid">
+    <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Dexter Timothy Morgan Moser</div></div>
+    <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">19.638.471-3</div></div>
+    <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">23</div></div>
+    <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+    <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+    <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">ditf_002</div></div>
+  </div>
 </div>
 
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Lucas Michelle</span>
-  <span><strong>Apellidos IC:</strong> Vidal Leiton</span>
-  <span><strong>RUT:</strong> 25.184.967-0</span>
-  <span><strong>Edad:</strong> 25</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> EE.UU</span>
-  <span><strong>Discord:</strong> Nacho_trobex</span>
+<!-- 000050 -->
+<div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000050</div><div class="meta-line">Tipo: Nacional</div></div></div>
+  <div class="dni-grid">
+    <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Benjamín Vicente Gonzáles Hernández</div></div>
+    <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">22.517.938-6</div></div>
+    <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">20</div></div>
+    <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+    <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chilena</div></div>
+    <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">Benja🚒🔥👨‍🚒🏎️</div></div>
+  </div>
 </div>
 
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Ignacio Mauricio</span>
-  <span><strong>Apellidos IC:</strong> Caballeria Araya</span>
-  <span><strong>RUT:</strong> 18.345.672-k</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chile</span>
-  <span><strong>Discord:</strong> nachocaba204</span>
+<!-- 000051 -->
+<div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000051</div><div class="meta-line">Tipo: Nacional</div></div></div>
+  <div class="dni-grid">
+    <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Jhon Alexander Smith Gonzales</div></div>
+    <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">20.948.372-1</div></div>
+    <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">21</div></div>
+    <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+    <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+    <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">m4tl4s</div></div>
+  </div>
 </div>
 
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Cristobal Andres</span>
-  <span><strong>Apellidos IC:</strong> Soto Rojas</span>
-  <span><strong>RUT:</strong> 18.642.342</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chile</span>
-  <span><strong>Discord:</strong> shadow_cris_1</span>
+<!-- 000052 -->
+<div class="dni data"><div class="dni-head"><div class="dni-brand"><div class="dni-country">República de Chile</div><div class="dni-title">Cédula de Identidad (RP)</div><div class="dni-sub">Capital RP — Registro Civil</div></div><div class="dni-meta"><div class="chip">N° Documento: CRP-000052</div><div class="meta-line">Tipo: Nacional</div></div></div>
+  <div class="dni-grid">
+    <div class="dni-field dni-wide"><div class="dni-label">Nombre completo</div><div class="dni-value">Agustín Alonso Herrera Urra</div></div>
+    <div class="dni-field"><div class="dni-label">RUT</div><div class="dni-value">26.483.719-4</div></div>
+    <div class="dni-field"><div class="dni-label">Edad</div><div class="dni-value">12</div></div>
+    <div class="dni-field"><div class="dni-label">Sexo</div><div class="dni-value">Masculino</div></div>
+    <div class="dni-field"><div class="dni-label">Nacionalidad</div><div class="dni-value">Chileno</div></div>
+    <div class="dni-field dni-wide"><div class="dni-label">Discord</div><div class="dni-value">agus064419</div></div>
+  </div>
 </div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Geronimo colon</span>
-  <span><strong>Apellidos IC:</strong> benavides rojas</span>
-  <span><strong>RUT:</strong> 18.213.412-k</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chile</span>
-  <span><strong>Discord:</strong> cristouballlll</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Vicente Hernandez</span>
-  <span><strong>Apellidos IC:</strong> Vicente Hernandez</span>
-  <span><strong>RUT:</strong> 17.424.315-2</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chile</span>
-  <span><strong>Discord:</strong> vicente131</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Bastian Emanuel</span>
-  <span><strong>Apellidos IC:</strong> Leiva Corvin</span>
-  <span><strong>RUT:</strong> 16.982.457-3</span>
-  <span><strong>Edad:</strong> 25</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chile</span>
-  <span><strong>Discord:</strong> Nevanjkk</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Agustin Alonso</span>
-  <span><strong>Apellidos IC:</strong> Aguirre Espejo</span>
-  <span><strong>RUT:</strong> 18.734.691-8</span>
-  <span><strong>Edad:</strong> 22</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chile</span>
-  <span><strong>Discord:</strong> Agus_11v</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Daniel Alejandro</span>
-  <span><strong>Apellidos IC:</strong> Diaz Mansilla</span>
-  <span><strong>RUT:</strong> 12.847.593-6</span>
-  <span><strong>Edad:</strong> 40</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chile</span>
-  <span><strong>Discord:</strong> ni.clx</span>
-</div> 
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Joaquín Elías</span>
-  <span><strong>Apellidos IC:</strong> Fierro Lizama</span>
-  <span><strong>RUT:</strong> 21.684.739-4</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Pato_30hx62115</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Dylans Valentino</span>
-  <span><strong>Apellidos IC:</strong> Muñoz Rivas</span>
-  <span><strong>RUT:</strong> 22.941.683-7</span>
-  <span><strong>Edad:</strong> 18</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> dil_gling</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Nicolás Ignacio</span>
-  <span><strong>Apellidos IC:</strong> Santos Shcneider</span>
-  <span><strong>RUT:</strong> 21.372.954-1</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> _blox_1</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Nicolás Antonio</span>
-  <span><strong>Apellidos IC:</strong> Martinez Morales</span>
-  <span><strong>RUT:</strong> 15.684.297-6</span>
-  <span><strong>Edad:</strong> 34</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> rusioman1</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Habibi Sekateck</span>
-  <span><strong>Apellidos IC:</strong> Tekas Turajack</span>
-  <span><strong>RUT:</strong> 18.932.471-9</span>
-  <span><strong>Edad:</strong> 26</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> habibi_arb</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Nicolás Renato</span>
-  <span><strong>Apellidos IC:</strong> Maldonado González</span>
-  <span><strong>RUT:</strong> 21.458.936-8</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> El_candy8394</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Antonio Esay</span>
-  <span><strong>Apellidos IC:</strong> Luna Caro</span>
-  <span><strong>RUT:</strong> 26.937.184-3</span>
-  <span><strong>Edad:</strong> 13</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Gojo satoru</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Agusto Pinochet</span>
-  <span><strong>Apellidos IC:</strong> Gonzalez Diaz</span>
-  <span><strong>RUT:</strong> 19.864.572-1</span>
-  <span><strong>Edad:</strong> 23</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> 169th_pollo</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Francisco Esteban</span>
-  <span><strong>Apellidos IC:</strong> Morales Valdés</span>
-  <span><strong>RUT:</strong> 26.184.739-5</span>
-  <span><strong>Edad:</strong> 13</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> brandonnnnn1947918e639</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Benjamin Andres</span>
-  <span><strong>Apellidos IC:</strong> Tapia Godoy</span>
-  <span><strong>RUT:</strong> 16.742.593-4</span>
-  <span><strong>Edad:</strong> 30</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> benja38545549454v</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Piero Alejandro</span>
-  <span><strong>Apellidos IC:</strong> González Martínez</span>
-  <span><strong>RUT:</strong> 26.538.194-7</span>
-  <span><strong>Edad:</strong> 13</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> España</span>
-  <span><strong>Discord:</strong> Elabran</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Benjamin Alejandro</span>
-  <span><strong>Apellidos IC:</strong> Coppola Fernández</span>
-  <span><strong>RUT:</strong> 25.917.638-2</span>
-  <span><strong>Edad:</strong> 13</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> Benjacoppola</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Felipe Andrés</span>
-  <span><strong>Apellidos IC:</strong> Aguilar Muñoz</span>
-  <span><strong>RUT:</strong> 21.693.847-5</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> felipemarite</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Ezequiel Rodrigo</span>
-  <span><strong>Apellidos IC:</strong> Fernández Rey</span>
-  <span><strong>RUT:</strong> 18.742.593-6</span>
-  <span><strong>Edad:</strong> 25</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Uruguay</span>
-  <span><strong>Discord:</strong> proyectohuracanbuceo</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Martino Antonio</span>
-  <span><strong>Apellidos IC:</strong> Gaete Bucarey</span>
-  <span><strong>RUT:</strong> 19.638.472-4</span>
-  <span><strong>Edad:</strong> 23</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> shisui1.7</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Diego Andres</span>
-  <span><strong>Apellidos IC:</strong> Martinez Perez</span>
-  <span><strong>RUT:</strong> 18.954.371-8</span>
-  <span><strong>Edad:</strong> 24</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> Diegogo_vc</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Juan Alberto</span>
-  <span><strong>Apellidos IC:</strong> Rojo Parado</span>
-  <span><strong>RUT:</strong> 20.483.719-2</span>
-  <span><strong>Edad:</strong> 21</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> lokotron_47</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Bastian Ignacio</span>
-  <span><strong>Apellidos IC:</strong> Mata Paco</span>
-  <span><strong>RUT:</strong> 18.593.742-9</span>
-  <span><strong>Edad:</strong> 24</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Bastian120</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Brayan Andres</span>
-  <span><strong>Apellidos IC:</strong> Sepulveda Yañes</span>
-  <span><strong>RUT:</strong> 25.874.631-3</span>
-  <span><strong>Edad:</strong> 15</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Brayan07779</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Benjamin Ignacio</span>
-  <span><strong>Apellidos IC:</strong> Contreras Ramírez</span>
-  <span><strong>RUT:</strong> 21.483.792-6</span>
-  <span><strong>Edad:</strong> 18</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Isaac6.5</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Fabiano Andrés</span>
-  <span><strong>Apellidos IC:</strong> Contreraz Rramirez</span>
-  <span><strong>RUT:</strong> 18.974.631-2</span>
-  <span><strong>Edad:</strong> 25</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> seisincoooo.65</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Jeremias Kevin</span>
-  <span><strong>Apellidos IC:</strong> Contreras Ramires</span>
-  <span><strong>RUT:</strong> 24.637.918-4</span>
-  <span><strong>Edad:</strong> 17</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> dilanfortyseveng_12560</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Jorge Curioso</span>
-  <span><strong>Apellidos IC:</strong> Mono Mono</span>
-  <span><strong>RUT:</strong> 25.918.473-7</span>
-  <span><strong>Edad:</strong> 14</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> _.10julieta10._</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Cristóbal Javier</span>
-  <span><strong>Apellidos IC:</strong> Díaz Flores</span>
-  <span><strong>RUT:</strong> 20.736.485-9</span>
-  <span><strong>Edad:</strong> 21</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> mtmlider0548</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Chikito Lolito</span>
-  <span><strong>Apellidos IC:</strong> Elmas Guapo</span>
-  <span><strong>RUT:</strong> 21.954.738-6</span>
-  <span><strong>Edad:</strong> 20</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Elpapitolindo</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Cristóbal Javier</span>
-  <span><strong>Apellidos IC:</strong> Díaz Flores</span>
-  <span><strong>RUT:</strong> 20.736.485-9</span>
-  <span><strong>Edad:</strong> 21</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> mtmlider0548</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Agustin Gabo Martinez Bulla</span>
-  <span><strong>Apellidos IC:</strong> Martinez Bulla</span>
-  <span><strong>RUT:</strong> 18.847.392-5</span>
-  <span><strong>Edad:</strong> 24</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> .martinezz.</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Tomillo Diego</span>
-  <span><strong>Apellidos IC:</strong> Flores Hernandez</span>
-  <span><strong>RUT:</strong> 25.638.194-8</span>
-  <span><strong>Edad:</strong> 14</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> tomillo_fdez11</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Juan Miguel</span>
-  <span><strong>Apellidos IC:</strong> Yamil Diaz</span>
-  <span><strong>RUT:</strong> 22.684.931-7</span>
-  <span><strong>Edad:</strong> 19</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> moises099082</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Adam Lesty</span>
-  <span><strong>Apellidos IC:</strong> Luster Georgia</span>
-  <span><strong>RUT:</strong> 18.593.741-6</span>
-  <span><strong>Edad:</strong> 24</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Eljajasxd_56_91918</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Miguel Juan Sebastian</span>
-  <span><strong>Apellidos IC:</strong> Piñera Reyes</span>
-  <span><strong>RUT:</strong> 12.847.639-2</span>
-  <span><strong>Edad:</strong> 45</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> Alonso</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Ryan Adam</span>
-  <span><strong>Apellidos IC:</strong> Sheppard West</span>
-  <span><strong>RUT:</strong> 22.948.371-5</span>
-  <span><strong>Edad:</strong> 18</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> agus_133cdc</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Thomas Alejandro</span>
-  <span><strong>Apellidos IC:</strong> Sheppard West</span>
-  <span><strong>RUT:</strong> 22.731.694-8</span>
-  <span><strong>Edad:</strong> 18</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chileno</span>
-  <span><strong>Discord:</strong> reno_hot</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Ignacio Juan</span>
-  <span><strong>Apellidos IC:</strong> Urizar Marambio</span>
-  <span><strong>RUT:</strong> 24.863.195-2</span>
-  <span><strong>Edad:</strong> 17</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> bjrn5591</span>
-</div>
-
-<div class="record data">
-  <span><strong>Nombre IC:</strong> Lucky Luciano</span>
-  <span><strong>Apellidos IC:</strong> Alcapony Donais</span>
-  <span><strong>RUT:</strong> 23.574.918-6</span>
-  <span><strong>Edad:</strong> 19</span>
-  <span><strong>Sexo:</strong> Masculino</span>
-  <span><strong>Nacionalidad:</strong> Chilena</span>
-  <span><strong>Discord:</strong> CIV ¦ lucrak9777</span>
-</div>
-
 
 </div>
 
 <!-- REGISTRO VEHÍCULOS -->
 <div class="section" id="vehiculos">
-<div class="section-title">Registro de Vehículos</div>
+  <div class="section-title">Registro de Vehículos</div>
 
-<!-- PLANTILLA AUTO -->
-<div class="record data">
-  <span><strong>Patente:</strong> CEO</span>
-  <span><strong>Marca (Real):</strong> audi</span>
-  <span><strong>Modelo (Liberty County):</strong> Averon Bremen Vs Garde</span>
-  <span><strong>Año:</strong> 2023</span>
-  <span><strong>Nombre IC:</strong> Ignacio Antonio</span>
-  <span><strong>Apellido ic:</strong> Martinez Garcia</span>
-  <span><strong>RUT:</strong> 20.482.913-2</span>
-  <span><strong>color:</strong> naranjo</span>
-  <span><strong>Discord:</strong> Jotakorx</span>
-</div>
+  <div class="record data">
+    <span><strong>Patente:</strong> CEO</span>
+    <span><strong>Marca (Real):</strong> audi</span>
+    <span><strong>Modelo (Liberty County):</strong> Averon Bremen Vs Garde</span>
+    <span><strong>Año:</strong> 2023</span>
+    <span><strong>Nombre IC:</strong> Ignacio Antonio</span>
+    <span><strong>Apellido ic:</strong> Martinez Garcia</span>
+    <span><strong>RUT:</strong> 20.482.913-2</span>
+    <span><strong>color:</strong> naranjo</span>
+    <span><strong>Discord:</strong> Jotakorx</span>
+  </div>
 
-<div class="record data">
-  <span><strong>Patente:</strong> FACIL</span>
-  <span><strong>Marca (Real):</strong> Chevrolet</span>
-  <span><strong>Modelo (Liberty County):</strong> Everest vrd max</span>
-  <span><strong>Año:</strong> 2023</span>
-  <span><strong>Nombre IC:</strong> Vicente Andres </span>
-  <span><strong>Apellido ic:</strong> Quiroz Fischer</span>
-  <span><strong>RUT:</strong> 12.345.678-5</span>
-  <span><strong>color:</strong> Rosado</span>
-  <span><strong>Discord:</strong>  Viceefnsnt_30317</span>
-</div>
+  <div class="record data">
+    <span><strong>Patente:</strong> FACIL</span>
+    <span><strong>Marca (Real):</strong> Chevrolet</span>
+    <span><strong>Modelo (Liberty County):</strong> Everest vrd max</span>
+    <span><strong>Año:</strong> 2023</span>
+    <span><strong>Nombre IC:</strong> Vicente Andres</span>
+    <span><strong>Apellido ic:</strong> Quiroz Fischer</span>
+    <span><strong>RUT:</strong> 12.345.678-5</span>
+    <span><strong>color:</strong> Rosado</span>
+    <span><strong>Discord:</strong> Viceefnsnt_30317</span>
+  </div>
 
-<div class="record data">
-  <span><strong>Patente:</strong> JSV-794</span>
-  <span><strong>Marca (Real):</strong> audi</span>
-  <span><strong>Modelo (Liberty County):</strong> Averon Anodic</span>
-  <span><strong>Año:</strong> 2024</span>
-  <span><strong>Nombre IC:</strong> Ignacio Antonio</span>
-  <span><strong>Apellido ic:</strong> Martinez Garcia</span>
-  <span><strong>RUT:</strong> 20.764.381-2</span>
-  <span><strong>color:</strong> Negro</span>
-  <span><strong>Discord:</strong> jotakorx</span>
-</div>
+  <div class="record data">
+    <span><strong>Patente:</strong> JSV-794</span>
+    <span><strong>Marca (Real):</strong> audi</span>
+    <span><strong>Modelo (Liberty County):</strong> Averon Anodic</span>
+    <span><strong>Año:</strong> 2024</span>
+    <span><strong>Nombre IC:</strong> Ignacio Antonio</span>
+    <span><strong>Apellido ic:</strong> Martinez Garcia</span>
+    <span><strong>RUT:</strong> 20.764.381-2</span>
+    <span><strong>color:</strong> Negro</span>
+    <span><strong>Discord:</strong> jotakorx</span>
+  </div>
 
-<div class="record data">
-  <span><strong>Patente:</strong> VLC-044</span>
-  <span><strong>Marca (Real):</strong> Chevroletc</span>
-  <span><strong>Modelo (Liberty County):</strong>Camion</span>
-  <span><strong>Año:</strong> 2024</span>
-  <span><strong>Nombre IC:</strong> Cristobal</span>
-  <span><strong>Apellido ic:</strong> Andrez</span>
-  <span><strong>RUT:</strong> 20.456.585-6</span>
-  <span><strong>color:</strong> Blanco</span>
-  <span><strong>Discord:</strong> shadow_cris_1</span>
-</div>
+  <div class="record data">
+    <span><strong>Patente:</strong> VLC-044</span>
+    <span><strong>Marca (Real):</strong> Chevroletc</span>
+    <span><strong>Modelo (Liberty County):</strong> Camion</span>
+    <span><strong>Año:</strong> 2024</span>
+    <span><strong>Nombre IC:</strong> Cristobal</span>
+    <span><strong>Apellido ic:</strong> Andrez</span>
+    <span><strong>RUT:</strong> 20.456.585-6</span>
+    <span><strong>color:</strong> Blanco</span>
+    <span><strong>Discord:</strong> shadow_cris_1</span>
+  </div>
 
-<div class="record data">
-  <span><strong>Patente:</strong> ABC-135</span>
-  <span><strong>Marca (Real):</strong> Toyota</span>
-  <span><strong>Modelo (Liberty County):</strong> Vellfire Pioneer</span>
-  <span><strong>Año:</strong> 2019</span>
-  <span><strong>Nombre IC:</strong> igancio </span>
-  <span><strong>Apellido ic:</strong> caballeria</span>
-  <span><strong>RUT:</strong> 18.345.672-k</span>
-  <span><strong>color:</strong> Blanco</span>
-  <span><strong>Discord:</strong> nachocaba204</span>
-</div>
+  <div class="record data">
+    <span><strong>Patente:</strong> ABC-135</span>
+    <span><strong>Marca (Real):</strong> Toyota</span>
+    <span><strong>Modelo (Liberty County):</strong> Vellfire Pioneer</span>
+    <span><strong>Año:</strong> 2019</span>
+    <span><strong>Nombre IC:</strong> igancio</span>
+    <span><strong>Apellido ic:</strong> caballeria</span>
+    <span><strong>RUT:</strong> 18.345.672-k</span>
+    <span><strong>color:</strong> Blanco</span>
+    <span><strong>Discord:</strong> nachocaba204</span>
+  </div>
 
-<div class="record data">
-  <span><strong>Patente:</strong> OPQ-423</span>
-  <span><strong>Marca (Real):</strong> Nissan</span>
-  <span><strong>Modelo (Liberty County):</strong> Navara Horizon</span>
-  <span><strong>Año:</strong> 2013</span>
-  <span><strong>Nombre IC:</strong> Geronimo Colon </span>
-  <span><strong>Apellido ic:</strong> Benavides Rojas</span>
-  <span><strong>RUT:</strong> 18.213.412-k</span>
-  <span><strong>color:</strong> Beige</span>
-  <span><strong>Discord:</strong> cristouballlll</span>
-</div>
+  <div class="record data">
+    <span><strong>Patente:</strong> OPQ-423</span>
+    <span><strong>Marca (Real):</strong> Nissan</span>
+    <span><strong>Modelo (Liberty County):</strong> Navara Horizon</span>
+    <span><strong>Año:</strong> 2013</span>
+    <span><strong>Nombre IC:</strong> Geronimo Colon</span>
+    <span><strong>Apellido ic:</strong> Benavides Rojas</span>
+    <span><strong>RUT:</strong> 18.213.412-k</span>
+    <span><strong>color:</strong> Beige</span>
+    <span><strong>Discord:</strong> cristouballlll</span>
+  </div>
 
 </div>
 
@@ -722,15 +1132,15 @@ function toggleMenu(){
   document.getElementById("sidebar").classList.toggle("active");
 }
 
-const search=document.getElementById("searchInput");
-const records=document.querySelectorAll(".data");
+const search = document.getElementById("searchInput");
+const records = document.querySelectorAll(".data");
 
-search.addEventListener("input",()=>{
-  const v=search.value.toLowerCase();
-  records.forEach(r=>{
+search.addEventListener("input", () => {
+  const v = search.value.toLowerCase();
+  records.forEach(r => {
     r.textContent.toLowerCase().includes(v)
-      ? r.style.display=""
-      : r.style.display="none";
+      ? r.style.display = ""
+      : r.style.display = "none";
   });
 });
 </script>
